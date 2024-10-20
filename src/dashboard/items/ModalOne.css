@@ -1,0 +1,74 @@
+/* styles.css */
+.dialog-paper {
+    background-color: #272D35 !important;
+    padding: 30px;
+    gap: 20px;
+    border-radius: 20px !important;
+    -webkit-border-radius: 20px !important;
+    -moz-border-radius: 20px !important;
+    -ms-border-radius: 20px !important;
+    -o-border-radius: 20px !important;
+    min-width: 400px;
+}
+
+.filter-paper{
+  gap: 0;
+}
+  
+  .dialog-title {
+    color: #D2D8E4;
+    font-weight: 600;
+    border-bottom: 2px solid #3D434A !important;
+    text-align: center;
+    font-size: 25px !important;
+  }
+
+  .dialog-content{
+    color: #fff !important;
+  }
+  
+  .dialog-actions  {
+    font-weight: bold;
+    justify-content: center !important;
+    width: 100% !important;
+  }
+  .dialog-actions button {
+    font-weight: bold;
+    background-color: #D70F17;
+    border: none;
+    width: 70%;
+    color: #fff;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+
+.radio-group{
+
+  flex-direction: row !important;
+  flex-wrap: wrap;
+
+  gap: 0rem 4rem;
+  justify-content: left !important;
+}
+.radio-group .child{
+width: 35% !important;
+justify-content: flex-start;
+
+}
+.filter-content{
+  padding: 40px 60px ;
+}
+.filter-content .child{
+position: relative;
+padding: 20px 0;
+
+}
+.filter-content .child p{
+position: absolute;
+top: -10px;
+left: 0;
+
+}
