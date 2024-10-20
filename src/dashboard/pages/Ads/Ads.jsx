@@ -29,7 +29,8 @@ export default function Ads() {
       try {
         const response = await axios.get(
           // `/api/public/dashboard/getAgentById/${selectedUsers.id}`
-          `/api/public/dashboard/getAllItems`
+          // `/api/public/dashboard/getAllItems`
+          `https://app.yallapadel.club/public/dashboard/getAllItems`
         );
 
         setUser(response.data.data);

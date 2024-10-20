@@ -31,7 +31,8 @@ export default function UserBooking() {
       try {
         // await delay(2000); 
         const response = await axios.get(
-          `/api/public/dashboard/getUserById/${selectedPlayer || selectedUsers.id}`
+          `https://app.yallapadel.club/public/dashboard/getUserById/${selectedPlayer || selectedUsers.id}`
+          // `/api/public/dashboard/getUserById/${selectedPlayer || selectedUsers.id}`
           // `/api/public/dashboard/getUserById/9`
         
         );

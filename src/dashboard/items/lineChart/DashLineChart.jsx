@@ -21,7 +21,10 @@ export default class DashLineChart extends PureComponent {
 
   fetchData = async () => {
     try {
-      const response = await axios.get(`/api/public/dashboard/getRevenue`);
+      const response = await axios.get(
+        // `/api/public/dashboard/getRevenue`
+        `https://app.yallapadel.club/public/dashboard/getRevenue`
+        );
       const { total_revenue, total_pending, total_complete, total_cancel } = response.data;
 
       // Transform data for the chart

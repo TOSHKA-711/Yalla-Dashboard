@@ -37,7 +37,10 @@ export default function ItemDetailsPage() {
     const fetchUser = async () => {
       await delay(1000);
       try {
-        const response = await axios.get(`/api/public/dashboard/getItem/4`);
+        const response = await axios.get(
+          // `/api/public/dashboard/getItem/4`
+          `https://app.yallapadel.club/public/dashboard/getItem/4`
+          );
         setUser(response.data.data);
       } catch (error) {
         console.error("Error fetching user:", error);
@@ -54,7 +57,8 @@ export default function ItemDetailsPage() {
       await delay(1000);
       try {
         const response = await axios.get(
-          `/api/public/dashboard/getScheduled/4`
+          // `/api/public/dashboard/getScheduled/4`
+          `https://app.yallapadel.club/public/dashboard/getScheduled/4`
         );
         setScheduled(response.data);
       } catch (error) {
@@ -73,7 +77,10 @@ export default function ItemDetailsPage() {
 
   const fetchTimes = async (day, month) => {
     try {
-      const response = await axios.get(`/api/public/dashboard/getTime`, {
+      const response = await axios.get(
+        // `/api/public/dashboard/getTime`
+        `https://app.yallapadel.club/public/dashboard/getTime`
+        , {
         params: {
           play_ground_id: 4,
           month,

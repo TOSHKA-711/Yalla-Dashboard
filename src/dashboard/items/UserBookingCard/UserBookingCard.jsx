@@ -28,7 +28,8 @@ export default function UserBookingCard() {
     const fetchUser = async () => {
       try {
         const response = await axios.get(
-          `/api/public/dashboard/getUserById/${selectedUsers.id}`
+          `https://app.yallapadel.club/public/dashboard/getUserById/${selectedUsers.id}`
+          // `/api/public/dashboard/getUserById/${selectedUsers.id}`
           // `/api/public/dashboard/getUserById/9}`
         );
 

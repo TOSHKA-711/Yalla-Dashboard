@@ -8,7 +8,8 @@ export default function Numbers() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `/api/public/dashboard/getCardCounter`
+          // `/api/public/dashboard/getCardCounter`
+          `https://app.yallapadel.club/public/dashboard/getCardCounter`
         );
         setData(response.data);
         // console.log(response.data);

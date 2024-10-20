@@ -36,7 +36,10 @@ export default function UsersTable({
   useEffect(() => {
     const fetchUsers = () => {
       axios
-        .get('/api/public/dashboard/getUsers')
+        .get(
+          'https://app.yallapadel.club/public/dashboard/getUsers'
+          // '/api/public/dashboard/getUsers'
+        )
         .then((response) => {
           // Ensure response data is an array before setting it to state
           if (Array.isArray(response.data.data)) {

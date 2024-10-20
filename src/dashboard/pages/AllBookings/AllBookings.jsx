@@ -22,7 +22,10 @@ export default function AllBookings() {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await axios.get(`/api/public/dashboard/getAllBooking`);
+        const response = await axios.get(
+          // `/api/public/dashboard/getAllBooking`
+          `https://app.yallapadel.club/public/dashboard/getAllBooking`
+          );
         setUser(response.data.data || []);
       } catch (error) {
         console.error("Error fetching user:", error);

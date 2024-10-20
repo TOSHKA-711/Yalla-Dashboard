@@ -13,7 +13,10 @@ export default function MuiPieChart() {
 
   useEffect(() => {
     // Fetch data from your API
-    axios.get('/api/public/dashboard/getCardCounter')
+    axios.get(
+      // '/api/public/dashboard/getCardCounter'
+      'https://app.yallapadel.club/public/dashboard/getCardCounter'
+    )
       .then((response) => {
         const { total_users, users, vendors, total_items } = response.data;
 

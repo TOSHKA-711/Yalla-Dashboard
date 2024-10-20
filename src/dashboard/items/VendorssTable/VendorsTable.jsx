@@ -36,7 +36,10 @@ export default function VendorsTable({
   useEffect(() => {
     const fetchUsers = () => {
       axios
-        .get('/api/public/dashboard/getAgent')
+        .get(
+          // '/api/public/dashboard/getAgent'
+          'https://app.yallapadel.club/public/dashboard/getAgent'
+          )
         .then((response) => {
           // Ensure response data is an array before setting it to state
           if (Array.isArray(response.data.data)) {

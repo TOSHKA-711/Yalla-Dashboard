@@ -28,7 +28,7 @@ export default function AdsCard() {
     const fetchUser = async () => {
       try {
         const response = await axios.get(
-          `/api/public/dashboard/getAgentById/${selectedUsers.id}`
+          `https://app.yallapadel.club/public/dashboard/getAgentById/${selectedUsers.id}`
           // `/api/public/dashboard/getAgentById/12`
         );
 

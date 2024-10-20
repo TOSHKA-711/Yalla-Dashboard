@@ -18,7 +18,8 @@ export default function Dashboard() {
     const fetch = async () => {
       try {
         const response = await axios.get(
-          `/api/public/dashboard/getRegistration`
+          // `/api/public/dashboard/getRegistration`
+          `https://app.yallapadel.club/public/dashboard/getRegistration`
         );
         setData(response.data);
         console.log(response.data);
