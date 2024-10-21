@@ -29,7 +29,7 @@ export default function ItemPage() {
 
   const handleCardClick = (ad) => {
     setSelectedFacility(ad);
-    navigate("/itemDetailsPage");
+    // navigate("/itemDetailsPage");
   };
 
   return (

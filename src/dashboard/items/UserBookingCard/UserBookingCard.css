@@ -15,6 +15,9 @@
         align-items: center;
         width: 100% !important;
     }
+    .booking-card{
+        width: 100% !important;
+    }
 }
 
 @media screen and (max-width:1500px) {
@@ -40,4 +43,5 @@
     .css-rbvuux-MuiTypography-root {
         font-size: 20px !important;
     }
+    
 }

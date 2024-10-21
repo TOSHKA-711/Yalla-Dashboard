@@ -59,7 +59,7 @@ export default function AdsCard() {
 
   const handleCardClick = (book) => {
     setSelectedAd(book);
-    navigate("/itemPage");
+    navigate("/itemDetailsPage");
   };
 
   if (loading) return <h3>Loading...</h3>; // Loading state

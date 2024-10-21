@@ -39,12 +39,10 @@
     color: #3C97F3;
 }
 
-.css-7iurs7-MuiAccordionSummary-content {
-    gap: 5rem;
-}
 .acc-date{
     gap: 10px;
     width: 9rem !important;
+    margin-right: 5rem;
 }
 .acc-hours{
     gap: 10px;
@@ -73,8 +71,8 @@
   .item-details .content {
     padding: 0 !important;
   }
-  .css-7iurs7-MuiAccordionSummary-content {
-    gap: 1rem;
+  .acc-date{
+    margin-right: 1rem;
 }
 
 }

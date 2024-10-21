@@ -9,6 +9,14 @@
 }
 
 
+.MuiSvgIcon-root {
+  color: #3C97F3 ;
+}
+
+/* nav-select  */
+
+
+
   @media screen and (max-width:1020px) {
     :where(.css-dev-only-do-not-override-1hpnbz2).ant-layout-sider .ant-layout-sider-trigger {
  

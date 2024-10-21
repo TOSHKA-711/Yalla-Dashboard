@@ -19,6 +19,7 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Button from "@mui/material/Button";
+import ItemPage from "../ItemPage/ItemPage";
 
 export default function ItemDetailsPage() {
   const { selectedFacility } = useContext(MyContext);
@@ -106,6 +107,10 @@ export default function ItemDetailsPage() {
 
       <div className="content flex-col">
         {!loading && (
+          <>
+
+       
+          <ItemPage/>
           <div className="details">
             <DetailsCard
               first={user?.title || "No title"}
@@ -128,10 +133,11 @@ export default function ItemDetailsPage() {
             <DetailsCard
               first={user?.description || "N/A"}
               last="description"
-              // third={`/ ${user?.scheduled?.time || "N/A"}`}
+              third={`/ ${user?.item_type|| ""}`}
               icon={<IoDocumentSharp className="moon" />}
             />
           </div>
+          </>
         )}
       </div>
 

@@ -55,7 +55,7 @@
 }
 
 .table-head.hidden{
-  display: none;
+  /* display: none; */
 }
 
 .toggle-span{

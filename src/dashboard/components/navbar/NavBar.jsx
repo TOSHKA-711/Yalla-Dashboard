@@ -63,7 +63,7 @@ export default function NavBar() {
                 },
               }}
             >
-              <NotificationsIcon color="#fff" />
+              <NotificationsIcon color="#fff" style={{color:"#fff"}}/>
             </Badge>
           </Link>
           <div className="sort flex-row flex-1">
@@ -82,6 +82,7 @@ export default function NavBar() {
                   inputProps={{ "aria-label": "Without label" }}
                   sx={{
                     backgroundColor: "#272d35",
+                    color: "#fff",
                     border:"none",
                     outline:"none",
                     borderRadius:"10px",
@@ -92,7 +93,7 @@ export default function NavBar() {
                     },
                   }}
                 >
-                  <MenuItem value="All Time">
+                  <MenuItem  value="All Time">
                     <em>All Time</em>
                   </MenuItem>
                   <MenuItem value={10}>Ten</MenuItem>
@@ -143,7 +144,7 @@ export default function NavBar() {
                     },
                   }}
                 >
-                  <NotificationsIcon color="#fff" />
+                  <NotificationsIcon color="#fff" style={{color:"#fff"}} />
                 </Badge>
               </Link>
 
@@ -167,28 +168,34 @@ export default function NavBar() {
                   minWidth: 120,
                 }}
               >
-                <FormControl fullWidth>
-                  <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={time}
-                    onChange={handleChangeTime}
-                    inputProps={{ "aria-label": "Without label" }}
-                    sx={{
-                      backgroundColor: "white",
-                      "&:hover": {
-                        backgroundColor: "lightblue",
-                      },
-                    }}
-                  >
-                    <MenuItem value="All Time">
-                      <em>All Time</em>
-                    </MenuItem>
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
-                  </Select>
-                </FormControl>
+                   <FormControl fullWidth >
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={time}
+                  onChange={handleChangeTime}
+                  inputProps={{ "aria-label": "Without label" }}
+                  sx={{
+                    backgroundColor: "#272d35",
+                    color: "#fff",
+                    border:"none",
+                    outline:"none",
+                    borderRadius:"10px",
+                    "&:hover": {
+                      // backgroundColor: "lightblue",
+                      border:"none",
+                    outline:"none",
+                    },
+                  }}
+                >
+                  <MenuItem  value="All Time">
+                    <em>All Time</em>
+                  </MenuItem>
+                  <MenuItem value={10}>Ten</MenuItem>
+                  <MenuItem value={20}>Twenty</MenuItem>
+                  <MenuItem value={30}>Thirty</MenuItem>
+                </Select>
+              </FormControl>
               </Box>
             </div>
           </div>

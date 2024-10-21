@@ -115,7 +115,8 @@
   }
   @media screen and (max-width:556px) {
     .user-card {
-    width: 70vw;
+    width: 75vw !important;
+    padding: 20px 0 !important;
   }
   }
   @media screen and (max-width:400px) {

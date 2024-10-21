@@ -240,16 +240,14 @@ padding: 0;
 .css-1xpd19f-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root:hover {
   background-color: #35373b;
 }
+.css-1xpd19f-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root {
+
+  color: unset !important;
+
+}
 
 .css-lohd6h-MuiSvgIcon-root-MuiSelect-icon {
-  color: #fff !important;
-}
-.css-d551zc-MuiSvgIcon-root-MuiSelect-icon {
-  color: #fff !important;
-}
-
-.css-w76bbz-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input {
-  color: #fff !important;
+  color: unset !important;
 }
 
 .css-1xpd19f-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root.Mui-focused
@@ -262,3 +260,4 @@ padding: 0;
   color: #ed1b24 !important;
   display: none !important;
 }
+
