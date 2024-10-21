@@ -2,27 +2,8 @@ import React, { useEffect, useState } from "react";
 import "./Numbers.css";
 import ProgressBar from "../../items/GradientCircular/progressBar";
 import axios from "axios";
-export default function Numbers() {
-  const [data, setData] = useState({});
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          // `/api/public/dashboard/getCardCounter`
-          `https://app.yallapadel.club/public/dashboard/getCardCounter`
-        );
-        setData(response.data);
-        // console.log(response.data);
-    
-      } catch (error) {
-        console.error("Error fetching user:", error);
-        setError("Failed to load user data.");
-      } 
-    };
+export default function Numbers({oneN,oneC,twoN,twoC,threeN,threeC}) {
 
-      fetchData();
- 
-  }, []);
   
   return (
     <div className="numbers row flex-row">
@@ -30,25 +11,25 @@ export default function Numbers() {
   
 
         <span className=" flex-col">
-          <h4>Total Users</h4>
-          <h2>{data.users}</h2>
+          <h4>{oneC}</h4>
+          <h2>{oneN}</h2>
         </span>
-        <ProgressBar per={true} width="20%" height="80%" value={70} />
+        <ProgressBar per={true} width="20%" height="80%" value={oneN} />
   
       </div>
       <div className="child flex-row">
         <span className=" flex-col">
-          <h4>Total Vendors</h4>
-          <h2>{data.vendors}</h2>
+          <h4>{twoC}</h4>
+          <h2>{twoN}</h2>
         </span>
-        <ProgressBar per={true} width="20%" height="80%" value={40} />
+        <ProgressBar per={true} width="20%" height="80%" value={twoN} />
       </div>
       <div className="child flex-row">
         <span className=" flex-col">
-          <h4>Total Ads</h4>
-          <h2>{data.total_items}</h2>
+          <h4>{threeC}</h4>
+          <h2>{threeN}</h2>
         </span>
-        <ProgressBar per={true} width="20%" height="80%" value={70} />
+        <ProgressBar per={true} width="20%" height="80%" value={threeN} />
       </div>
     </div>
  

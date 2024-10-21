@@ -35,10 +35,7 @@ export default function AdsCard() {
         setUser(response.data.data);
         // console.log(response.data.data);
 
-        if (
-          response.data.data.items &&
-          response.data.data.items.length > 0
-        ) {
+        if (response.data.data.items && response.data.data.items.length > 0) {
           setUserBookingLength(true);
         } else {
           setUserBookingLength(false);
@@ -69,7 +66,7 @@ export default function AdsCard() {
   if (error) return <h3>{error}</h3>; // Error state
 
   return (
-    <div className="cards ad" >
+    <div className="cards ad">
       {userBookingLength ? (
         user.items.map((book) => {
           return (
@@ -78,14 +75,25 @@ export default function AdsCard() {
               sx={{
                 display: "flex",
                 padding: "10px",
+                justifyContent: "space-between",
                 gap: "10px",
                 background:
                   "linear-gradient(90deg, #3c97f3, rgba(60, 151, 243, 0))  ",
                 cursor: "pointer",
+                flexDirection: { xs: "column-reverse", sm: "row" },
+                alignItems: { xs: "center", sm: "flex-start" },
+                gap: { xs: 0, sm: 2 },
               }}
               onClick={() => handleCardClick(book)}
             >
-              <Box sx={{ display: "flex", flexDirection: "column" }}>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                 
+                  width: "100%",
+                }}
+              >
                 <CardContent
                   sx={{
                     flex: "1 0 auto",
@@ -124,7 +132,7 @@ export default function AdsCard() {
               </Box>
               <CardMedia
                 component="img"
-                sx={{ width: "10rem" , height:"8rem" }}
+                sx={{ width: "10rem", height: "8rem" }}
                 image={book.image}
                 // image={img}
                 alt="Live from space album cover"

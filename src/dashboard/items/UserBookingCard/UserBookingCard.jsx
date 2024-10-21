@@ -77,13 +77,16 @@ export default function UserBookingCard() {
             <Card
               key={book.id}
               sx={{
-                display: "flex",
-                padding: "10px",
-                gap: "10px",
-                background:
-                  "linear-gradient(90deg, #3c97f3, rgba(60, 151, 243, 0))  ",
-                cursor: "pointer",
-              }}
+    display: "flex",
+    padding: "10px",
+    justifyContent: "space-between",
+    background: "linear-gradient(90deg, #3c97f3, rgba(60, 151, 243, 0))",
+    cursor: "pointer",
+    flexDirection: { xs: "column-reverse", sm: "row" },
+    alignItems: { xs: "center", sm: "flex-start" },
+    gap: { xs: 0, sm: "10px" },
+    width: { xs: "100%", md: "auto" }, // Full width on smaller screens
+  }}
               onClick={() => handleCardClick(book)}
             >
               <Box sx={{ display: "flex", flexDirection: "column" }}>

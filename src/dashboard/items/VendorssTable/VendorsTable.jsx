@@ -230,6 +230,7 @@ export default function VendorsTable({
           onRowsPerPageChange={handleChangeRowsPerPage}
           sx={{
             color: "#fff",
+            overflowX:"hidden",
             "& .MuiSelect-icon": { color: "#fff" },
             "& .MuiTablePagination-actions button": { color: "#fff" },
           }}

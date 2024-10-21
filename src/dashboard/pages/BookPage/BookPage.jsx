@@ -71,9 +71,9 @@ navigate("/userBooking");
             icon={<FaMapLocationDot className="moon" />}
           />
           <DetailsCard
-            first={selectedBook.item.price}
+            first={`${selectedBook.item_price.price} SAR / ${selectedBook.item_price.duration} minutes`}
             last="price"
-            third=" SAR"
+            // third=" SAR"
             icon={<FaSackDollar className="moon" />}
           />
           <DetailsCard

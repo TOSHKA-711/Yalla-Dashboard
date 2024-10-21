@@ -14,6 +14,7 @@ import axios from "axios";
 
 export default function Dashboard() {
   const [data, setData] = useState({});
+  const [data2, setData2] = useState({});
   useEffect(() => {
     const fetch = async () => {
       try {
@@ -32,9 +33,32 @@ export default function Dashboard() {
     fetch();
   }, []);
 
+  
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          // `/api/public/dashboard/getCardCounter`
+          `https://app.yallapadel.club/public/dashboard/getCardCounter`
+        );
+        setData2(response.data);
+        // console.log(response.data);
+    
+      } catch (error) {
+        console.error("Error fetching user:", error);
+        setError("Failed to load user data.");
+      } 
+    };
+
+      fetchData();
+ 
+  }, []);
+
   return (
     <div className="dashboard flex-col">
-      <Numbers />
+      <Numbers oneN={data2.total_users} oneC={"Total Customers"} twoN={data2.users} twoC={"Users"} threeN={data2.vendors} threeC={"Vendors"}/>
+      <Numbers oneN={data2.total_items} oneC={"Total Items"} twoN={data2.playgrounds} twoC={"Playgrounds"} threeN={data2.bookings} threeC={"Bookings"}/>
+    
       <div className="f-charts row flex-row">
         <div className="child l-child flex-col flex-1">
           <h3>Registration</h3>
@@ -87,7 +111,13 @@ export default function Dashboard() {
               <p>social media</p>
             </span>
             <span className=" flex-col">
-              <ProgressBar value={75} width="50%" height="80%" color={"red"} />
+            <ProgressBar
+                value={data.count_user_with_social_app}
+                width="50%"
+                height="80%"
+                color={"red"}
+                per={false}
+              />
               <p>Log in</p>
             </span>
           </div>

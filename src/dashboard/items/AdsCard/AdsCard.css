@@ -9,7 +9,7 @@
 }
 
 .css-1xae4et-MuiPaper-root-MuiCard-root {
-  justify-content: space-between !important;
+  /* justify-content: space-between !important; */
   width: 100%;
 }
 
@@ -33,7 +33,7 @@
 @media screen and (max-width:1500px) {
   .css-1xae4et-MuiPaper-root-MuiCard-root {
 
-      justify-content: space-between !important;
+      /* justify-content: space-between !important; */
       width: 100%;
   }
   .css-1ckp1zj-MuiCardMedia-root {

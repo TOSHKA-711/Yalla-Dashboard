@@ -167,7 +167,7 @@ export default function Vendors() {
       <SortModal sortOpen={sortOpen} handleSortClose={handleSortClose} sortValue={sortValue} handleSortChange={handleSortChange}/>
       <FilterModal filterOpen={filterOpen} handleFilterClose={handleFilterClose} filterValue={filterValue} handleFilterChange={handleFilterChange}/>
       <div className="vendors flex-col">
-        <Numbers />
+        {/* <Numbers /> */}
         <VendorsTable handleClickSortOpen={handleClickSortOpen} handleClickFilterOpen={handleClickFilterOpen}/>
       </div>
     </>

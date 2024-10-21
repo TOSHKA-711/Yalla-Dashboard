@@ -70,9 +70,10 @@ export default function NavBar() {
             <Box
               sx={{
                 minWidth: 120,
+                
               }}
             >
-              <FormControl fullWidth>
+              <FormControl fullWidth >
                 <Select
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
@@ -80,9 +81,14 @@ export default function NavBar() {
                   onChange={handleChangeTime}
                   inputProps={{ "aria-label": "Without label" }}
                   sx={{
-                    backgroundColor: "white",
+                    backgroundColor: "#272d35",
+                    border:"none",
+                    outline:"none",
+                    borderRadius:"10px",
                     "&:hover": {
-                      backgroundColor: "lightblue",
+                      // backgroundColor: "lightblue",
+                      border:"none",
+                    outline:"none",
                     },
                   }}
                 >

@@ -164,7 +164,7 @@ export default function Users() {
       <SortModal sortOpen={sortOpen} handleSortClose={handleSortClose} sortValue={sortValue} handleSortChange={handleSortChange}/>
       <FilterModal filterOpen={filterOpen} handleFilterClose={handleFilterClose} filterValue={filterValue} handleFilterChange={handleFilterChange}/>
       <div className="users flex-col">
-        <Numbers />
+        {/* <Numbers /> */}
         <UsersTable handleClickSortOpen={handleClickSortOpen} handleClickFilterOpen={handleClickFilterOpen}/>
       </div>
     </>

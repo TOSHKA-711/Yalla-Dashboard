@@ -3,6 +3,7 @@
   gap: 20px;
   align-items: stretch;
   width: 100%;
+  
 }
 .numbers .child {
   background: linear-gradient(90deg, #3c97f3, rgba(60, 151, 243, 0)) !important;
