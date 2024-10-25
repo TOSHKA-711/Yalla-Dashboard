@@ -73,6 +73,10 @@
     background-color: #d8d9db;
     color: #ed1b24;
   }
+  .user-btns button.withdraw {
+    background-color: #590ecb;
+    color: #fff;
+  }
   
   .user-card .down{
     gap: 20px;

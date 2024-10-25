@@ -11,13 +11,17 @@ import { BsCalendar2DateFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 
 export default function BookPage() {
-  const { selectedBook, setSelectedUsers , setSelectedPlayer} = useContext(MyContext);
+  const { selectedBook, setSelectedPlayer} = useContext(MyContext);
+  // console.log(selectedBook);
   
   const navigate = useNavigate();
 
+
+
+
+
 const handlePlayerSelect =(e)=>{
 setSelectedPlayer(e);
-// setSelectedUsers(null);
 navigate("/userBooking");
 
 
@@ -82,8 +86,7 @@ navigate("/userBooking");
             third={`/ ${selectedBook.scheduled.time}`}
             icon={<BsCalendar2DateFill className="moon" />}
           />
-          {/* <DetailsCard first="tooshka" last="last" third ="third" icon={<FaMapLocationDot className="moon"/>}/>
-<DetailsCard first="tooshka" last="last" third ="third" icon={<FaMapLocationDot className="moon"/>}/> */}
+      
         </div>
       </div>
     </div>

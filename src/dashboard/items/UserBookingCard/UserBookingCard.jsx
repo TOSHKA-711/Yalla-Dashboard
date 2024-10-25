@@ -14,9 +14,11 @@ import img from "../../../assets/imgs/padel_court_2.png";
 import { MyContext } from "../../ContextApi/Provider";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import Failed from "../Failed/Failed";
+import { CircularProgress } from "@mui/material";
 
 export default function UserBookingCard() {
-  const { selectedUsers, setSelectedBook } = useContext(MyContext);
+  const { selectedUsers, setSelectedBook , selectedPlayer} = useContext(MyContext);
   const [user, setUser] = useState(null);
   const [userBookingLength, setUserBookingLength] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -28,9 +30,7 @@ export default function UserBookingCard() {
     const fetchUser = async () => {
       try {
         const response = await axios.get(
-          `https://app.yallapadel.club/public/dashboard/getUserById/${selectedUsers.id}`
-          // `/api/public/dashboard/getUserById/${selectedUsers.id}`
-          // `/api/public/dashboard/getUserById/9}`
+          `https://app.yallapadel.club/public/dashboard/getUserById/${ selectedPlayer || selectedUsers.id}`
         );
 
         setUser(response.data.data);
@@ -44,8 +44,6 @@ export default function UserBookingCard() {
         } else {
           setUserBookingLength(false);
         }
-
-        // console.log(response.data.data.all_bookings);
       } catch (error) {
         console.error("Error fetching user:", error);
         setError("Failed to load user data.");
@@ -66,14 +64,15 @@ export default function UserBookingCard() {
     navigate("/bookPage");
   };
 
-  if (loading) return <h3>Loading...</h3>; // Loading state
-  if (error) return <h3>{error}</h3>; // Error state
+  if (loading) return <h3><CircularProgress/></h3>; // Loading state
+  if (error) return <Failed text={error} /> ; // Error state
 
   return (
     <div className="cards">
       {userBookingLength ? (
         user.all_bookings.map((book) => {
           return (
+        
             <Card
               key={book.id}
               sx={{
@@ -124,13 +123,26 @@ export default function UserBookingCard() {
                     component="div"
                     sx={{ color: "text.secondary", color: "#fff" }}
                   >
-                    {book.item.price} SAR
+                    {book.item_price.price} SAR
+                  </Typography>
+                  <Typography
+                    variant="subtitle1"
+                    component="div"
+                    sx={{ color: "text.secondary", color: "#fff" }}
+                  >
+                    ID- {book.item.id} 
                   </Typography>
                 </CardContent>
               </Box>
               <CardMedia
                 component="img"
-                sx={{ width: 200 }}
+                sx={{
+                  width: 160,
+                  alignSelf: "center",
+                  "@media(max-width:1500px)": {
+                    width: 200,
+                  },
+                }}
                 image={img}
                 alt="Live from space album cover"
               />
@@ -138,7 +150,7 @@ export default function UserBookingCard() {
           );
         })
       ) : (
-        <h1>No bookings found.</h1> // Display a message if no bookings exist
+        <h2>No bookings found.</h2> // Display a message if no bookings exist
       )}
     </div>
   );

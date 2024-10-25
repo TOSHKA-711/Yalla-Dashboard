@@ -28,7 +28,7 @@ export default function UsersTable({
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const navigate = useNavigate();
   const isSmallScreen = useMediaQuery("(max-width:930px)");
-  const { users =[], setUsers, selectedUsers, setSelectedUsers , setSelectedPlayer} =
+  const { users =[], setUsers, selectedUsers, setSelectedUsers , setSelectedPlayer ,setSelectedBook} =
     useContext(MyContext);
 
   // fetching users
@@ -70,9 +70,12 @@ export default function UsersTable({
 
   const filteredUsers = useMemo(() => {
     return users.filter((user) =>
-      user.name.toLowerCase().includes(searchTerm.toLowerCase())
+      (user.name || "").toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (user.email || "").toLowerCase().includes(searchTerm.toLowerCase()) ||
+      String(user.id).toLowerCase().includes(searchTerm.toLowerCase())
     );
   }, [searchTerm, users]);
+  
 
   const visibleRows = useMemo(
     () =>
@@ -217,7 +220,7 @@ export default function UsersTable({
           onRowsPerPageChange={handleChangeRowsPerPage}
           sx={{
             color: "#fff",
-            overflowX:"hidden",
+            // overflowX:"hidden",
             "& .MuiSelect-icon": { color: "#fff" },
             "& .MuiTablePagination-actions button": { color: "#fff" },
           }}

@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "./Dashboard.css";
-
 import DashLineChart from "../../items/lineChart/DashLineChart";
 import Numbers from "../../components/numbers/Numbers";
-import SimpleBarChart from "../../items/BarChart/SimpleBarChart";
-import SimpleBarChart2 from "../../items/BarChart/SimpleBarChart2";
-import SimpleBarChart3 from "../../items/BarChart/SimpleBarChart3";
+// import SimpleBarChart from "../../items/BarChart/SimpleBarChart";
+// import SimpleBarChart2 from "../../items/BarChart/SimpleBarChart2";
+// import SimpleBarChart3 from "../../items/BarChart/SimpleBarChart3";
 import MuiPieChart from "../../items/MuiPieChart/MuiPieChart";
 import ProgressBar from "../../items/GradientCircular/progressBar";
 
@@ -19,11 +18,9 @@ export default function Dashboard() {
     const fetch = async () => {
       try {
         const response = await axios.get(
-          // `/api/public/dashboard/getRegistration`
           `https://app.yallapadel.club/public/dashboard/getRegistration`
         );
         setData(response.data);
-        console.log(response.data);
       } catch (error) {
         console.error("Error fetching user:", error);
         setError("Failed to load user data.");
@@ -33,32 +30,41 @@ export default function Dashboard() {
     fetch();
   }, []);
 
-  
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          // `/api/public/dashboard/getCardCounter`
           `https://app.yallapadel.club/public/dashboard/getCardCounter`
         );
         setData2(response.data);
-        // console.log(response.data);
-    
       } catch (error) {
         console.error("Error fetching user:", error);
         setError("Failed to load user data.");
-      } 
+      }
     };
 
-      fetchData();
- 
+    fetchData();
   }, []);
 
   return (
     <div className="dashboard flex-col">
-      <Numbers oneN={data2.total_users} oneC={"Total Customers"} twoN={data2.users} twoC={"Users"} threeN={data2.vendors} threeC={"Vendors"}/>
-      <Numbers oneN={data2.total_items} oneC={"Total Items"} twoN={data2.playgrounds} twoC={"Playgrounds"} threeN={data2.bookings} threeC={"Bookings"}/>
-    
+      <Numbers
+        oneN={data2.total_users}
+        oneC={"Total Customers"}
+        twoN={data2.users}
+        twoC={"Users"}
+        threeN={data2.vendors}
+        threeC={"Vendors"}
+      />
+      <Numbers
+        oneN={data2.total_items}
+        oneC={"Total Items"}
+        twoN={data2.playgrounds}
+        twoC={"Playgrounds"}
+        threeN={data2.bookings}
+        threeC={"Bookings"}
+      />
+
       <div className="f-charts row flex-row">
         <div className="child l-child flex-col flex-1">
           <h3>Registration</h3>
@@ -111,7 +117,7 @@ export default function Dashboard() {
               <p>social media</p>
             </span>
             <span className=" flex-col">
-            <ProgressBar
+              <ProgressBar
                 value={data.count_user_with_social_app}
                 width="50%"
                 height="80%"

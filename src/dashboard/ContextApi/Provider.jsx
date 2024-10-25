@@ -35,6 +35,11 @@ const MyProvider = ({ children }) => {
     return savedSelectedFacility ? JSON.parse(savedSelectedFacility) : {};
   });
 
+  // const [DialogPaymentData, setDialogPaymentData] = useState(() => {
+  //   const savedDialogPaymentData = localStorage.getItem("DialogPaymentData");
+  //   return savedDialogPaymentData ? JSON.parse(savedDialogPaymentData) : {};
+  // });
+
   // Update local storage whenever users or selectedUsers change
   useEffect(() => {
     localStorage.setItem("users", JSON.stringify(users));
@@ -60,6 +65,13 @@ const MyProvider = ({ children }) => {
     localStorage.setItem("selectedFacility", JSON.stringify(selectedFacility));
   }, [selectedFacility]);
 
+  // useEffect(() => {
+  //   localStorage.setItem(
+  //     "DialogPaymentData",
+  //     JSON.stringify(DialogPaymentData)
+  //   );
+  // }, [DialogPaymentData]);
+
   return (
     <MyContext.Provider
       value={{
@@ -75,6 +87,8 @@ const MyProvider = ({ children }) => {
         setSelectedAd,
         selectedFacility,
         setSelectedFacility,
+        // DialogPaymentData,
+        // setDialogPaymentData,
       }}
     >
       {children}

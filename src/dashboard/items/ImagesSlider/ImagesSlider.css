@@ -38,3 +38,8 @@ span.swiper-pagination-bullet {
 .swiper-button-prev, .swiper-button-next {
   display: none !important;
 }
+@media screen and (max-width: 450px) {
+  .swiper {
+      height: 50vw !important;
+  }
+}

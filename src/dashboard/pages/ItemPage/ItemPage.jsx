@@ -13,7 +13,6 @@ export default function ItemPage() {
   const navigate = useNavigate();
   const { selectedAd, setSelectedFacility } = useContext(MyContext);
   const [facility, setFacility] = useState(false);
-  console.log(selectedAd);
 
   useEffect(() => {
     const facilityCheck = () => {
@@ -35,7 +34,7 @@ export default function ItemPage() {
   return (
     <>
       {facility ? (
-        <div className="cards">
+        <div className=" items-cards">
           {selectedAd ? (
             selectedAd.facility.map((ad) => {
               const dateStr = ad.created_at;
@@ -55,6 +54,7 @@ export default function ItemPage() {
                   sx={{
                     display: "flex",
                     padding: "10px",
+                    justifyContent:"space-between",
                     gap: "10px",
                     background:
                       "linear-gradient(90deg, #3c97f3, rgba(60, 151, 243, 0))  ",
@@ -101,7 +101,7 @@ export default function ItemPage() {
                   </Box>
                   <CardMedia
                     component="img"
-                    sx={{ width: "10rem", height: "8rem" }}
+                    sx={{ width: "10rem", height: "8rem", alignSelf:"center" }}
                     image={selectedAd.image ? selectedAd.image : img}
                     alt="Live from space album cover"
                   />

@@ -1,141 +1,215 @@
-import React, { useContext, useEffect, useState } from "react";
-import "./Ads.css";
-import { useTheme } from "@mui/material/styles";
+
+
+import React, { useContext, useEffect, useMemo, useState } from "react";
+import "../../items/UsersTable/UsersTable.css";
 import Box from "@mui/material/Box";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import IconButton from "@mui/material/IconButton";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TablePagination from "@mui/material/TablePagination";
+import TableRow from "@mui/material/TableRow";
+import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import SkipPreviousIcon from "@mui/icons-material/SkipPrevious";
-import PlayArrowIcon from "@mui/icons-material/PlayArrow";
-import SkipNextIcon from "@mui/icons-material/SkipNext";
-import img from "../../../assets/imgs/padel_court_2.png";
-import { MyContext } from "../../ContextApi/Provider";
+import Paper from "@mui/material/Paper";
+import { Avatar, useMediaQuery } from "@mui/material";
+import { CiSearch } from "react-icons/ci";
+import { CiFilter } from "react-icons/ci";
+import { BiSort } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
+import { MyContext } from "../../ContextApi/Provider";
 import axios from "axios";
 
-export default function Ads() {
-  const { selectedUsers, setSelectedAd } = useContext(MyContext);
-  const [user, setUser] = useState(null);
-  const [userBookingLength, setUserBookingLength] = useState(false);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+export default function Ads({}) {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
   const navigate = useNavigate();
-  const theme = useTheme();
+  const isSmallScreen = useMediaQuery("(max-width:930px)");
+  const {
+    users = [],
+    setUsers,
+    setSelectedAd
+  } = useContext(MyContext);
+
+  // fetching users
 
   useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const response = await axios.get(
-          // `/api/public/dashboard/getAgentById/${selectedUsers.id}`
-          // `/api/public/dashboard/getAllItems`
-          `https://app.yallapadel.club/public/dashboard/getAllItems`
-        );
-
-        setUser(response.data.data);
-        console.log(response.data.data);
-
-        if (
-          response.data.data &&
-          response.data.data.length > 0
-        ) {
-          setUserBookingLength(true);
-        } else {
-          setUserBookingLength(false);
-        }
-
-        console.log(response.data.data);
-      } catch (error) {
-        console.error("Error fetching user:", error);
-        setError("Failed to load user data.");
-      } finally {
-        setLoading(false);
-      }
+    const fetchUsers = () => {
+      axios
+        .get("https://app.yallapadel.club/public/dashboard/getAllItems")
+        .then((response) => {
+          // Ensure response data is an array before setting it to state
+          if (Array.isArray(response.data.data)) {
+            setUsers(response.data.data);
+            // console.log(response.data.data);
+          } else {
+            console.error("Expected an array but got:", response.data);
+            setUsers([]); // Fallback to an empty array
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching users:", error);
+          setUsers([]); // Handle error state
+        });
     };
 
-    if (selectedUsers.id) {
-      fetchUser();
-    }
-  }, [selectedUsers.id]);
+    fetchUsers();
+  }, []);
 
-  // handle click booking card
-
-  const handleCardClick = (book) => {
-    setSelectedAd(book);
-    navigate("/itemPage");
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
   };
 
-  if (loading) return <div>Loading...</div>; // Loading state
-  if (error) return <div>{error}</div>; // Error state
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
+  const filteredUsers = useMemo(() => {
+    return users.filter((user) =>
+      (user?.title || "").toLowerCase().includes(searchTerm.toLowerCase()) ||
+      String(user.price || "").toLowerCase().includes(searchTerm.toLowerCase()) ||
+      String(user.id).toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  }, [searchTerm, users]);
+
+  const visibleRows = useMemo(
+    () =>
+      filteredUsers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage),
+    [page, rowsPerPage, filteredUsers]
+  );
+
+  //  navigate func
+  const handleUserNavigation = (row) => {
+    setSelectedAd(row);
+    navigate("/itemDetailsPage");
+  };
+
 
   return (
-    <div className="cards ad" >
-      {userBookingLength ? (
-        user.map((book) => {
-          return (
-            <Card
-              key={book.id}
-              sx={{
-                display: "flex",
-                padding: "10px",
-                gap: "10px",
-                background:
-                  "linear-gradient(90deg, #3c97f3, rgba(60, 151, 243, 0))  ",
-                cursor: "pointer",
-              }}
-              onClick={() => handleCardClick(book)}
-            >
-              <Box sx={{ display: "flex", flexDirection: "column" }}>
-                <CardContent
-                  sx={{
-                    flex: "1 0 auto",
-                    backgroundColor: "",
-                    alignItems: "flex-start",
-                  }}
+    <Box sx={{ width: "100%" }}>
+      <Paper
+        sx={{
+          width: "100%",
+          mb: 2,
+          backgroundColor: "#272D35",
+          color: "#fff",
+          padding: "20px",
+          borderRadius: "20px",
+        }}
+      >
+        <Toolbar
+          sx={{
+            pl: { sm: 2 },
+            pr: { xs: 1, sm: 1 },
+          }}
+        >
+          <Typography
+            sx={{ flex: "1 1 100%" }}
+            variant="h6"
+            id="tableTitle"
+            component="div"
+          >
+            <div className="table-header flex-row">
+              <div className="search flex-row">
+                <CiSearch className="icon" />
+                <input
+                  placeholder="search"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                />
+              </div>
+              <div className="btns flex-row">
+                <button
+                  className="filter flex-row"
+                  // onClick={() => handleClickFilterOpen()}
                 >
-                  <Typography
-                    component="div"
-                    variant="h5"
-                    sx={{ color: "#fff" }}
-                  >
-                    {book.title}
-                  </Typography>
-                  <Typography
-                    variant="subtitle1"
-                    component="div"
-                    sx={{ color: "text.secondary", color: "#fff" }}
-                  >
-                    <span
-                      className=" flex-col"
-                      style={{ alignItems: "flex-start" }}
-                    >
-                      <p>{book.description} </p>
-                      <p>{book.item_type} </p>
-                    </span>
-                  </Typography>
-                  <Typography
-                    variant="subtitle1"
-                    component="div"
-                    sx={{ color: "text.secondary", color: "#fff" }}
-                  >
-                    {book.price} $
-                  </Typography>
-                </CardContent>
-              </Box>
-              <CardMedia
-                component="img"
-                sx={{ width: "10rem" , height:"8rem" }}
-                image={book.image}
-                // image={img}
-                alt="Live from space album cover"
-              />
-            </Card>
-          );
-        })
-      ) : (
-        <h1>No bookings found.</h1> // Display a message if no bookings exist
-      )}
-    </div>
+                  <CiFilter className="icon" />
+                  <span>Filter</span>
+                </button>
+                <button
+                  className="sort flex-row"
+                  // onClick={() => handleClickSortOpen()}
+                >
+                  <BiSort className="icon" />
+                  <span>Sort</span>
+                </button>
+              </div>
+            </div>
+          </Typography>
+        </Toolbar>
+        <TableContainer>
+          <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle">
+            <TableHead className={`table-head ${isSmallScreen && "hidden"}`}>
+              <TableRow>
+                <TableCell sx={{ color: "#AAADAF" }}>ID</TableCell>
+                <TableCell align="center" sx={{ color: "#AAADAF" }}>
+                  Title
+                </TableCell>
+                <TableCell align="center" sx={{ color: "#AAADAF" }}>
+                  Price
+                </TableCell>
+
+                <TableCell align="center" sx={{ color: "#AAADAF" }}>
+                  Location
+                </TableCell>
+
+                <TableCell align="center" sx={{ color: "#AAADAF" }}>
+                  Type
+                </TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {visibleRows.map((row) => (
+                <TableRow
+                  hover
+                  tabIndex={-1}
+                  key={row.id}
+                  // value={row.Basic_ad}
+                  onClick={() => handleUserNavigation(row)}
+                  sx={{ cursor: "pointer" }}
+                >
+                  <TableCell align="left" sx={{ color: "#fff" }}>
+                    <>{row?.id || ""}</>
+                  </TableCell>
+
+                  <TableCell align="center" sx={{ color: "#fff" }}>
+                    <>{row ? row.title : "null"}</>
+                  </TableCell>
+                  <TableCell align="center" sx={{ color: "#fff" }}>
+                    <>{row ? row.price : "null"}</>
+                  </TableCell>
+
+                  <TableCell align="center" sx={{ color: "#fff" }}>
+                    <>{row.city ? row.city.path : "null"}</>
+                  </TableCell>
+
+                  <TableCell align="center" sx={{ color: "#fff" }}>
+                    <>{row ? row.item_type : "null"}</>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <TablePagination
+          rowsPerPageOptions={[5, 10, 25]}
+          component="div"
+          count={users.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+          sx={{
+            color: "#fff",
+            // overflowX:"hidden",
+            "& .MuiSelect-icon": { color: "#fff" },
+            "& .MuiTablePagination-actions button": { color: "#fff" },
+          }}
+        />
+      </Paper>
+    </Box>
   );
 }

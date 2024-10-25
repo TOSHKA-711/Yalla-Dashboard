@@ -28,8 +28,13 @@ export default function VendorsTable({
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const navigate = useNavigate();
   const isSmallScreen = useMediaQuery("(max-width:930px)");
-  const { users =[], setUsers, selectedUsers, setSelectedUsers } =
-    useContext(MyContext);
+  const {
+    users = [],
+    setUsers,
+    selectedUsers,
+    setSelectedUsers,
+    setSelectedPlayer,
+  } = useContext(MyContext);
 
   // fetching users
 
@@ -37,9 +42,9 @@ export default function VendorsTable({
     const fetchUsers = () => {
       axios
         .get(
-          // '/api/public/dashboard/getAgent'
-          'https://app.yallapadel.club/public/dashboard/getAgent'
-          )
+         
+          "https://app.yallapadel.club/public/dashboard/getAgent"
+        )
         .then((response) => {
           // Ensure response data is an array before setting it to state
           if (Array.isArray(response.data.data)) {
@@ -54,10 +59,9 @@ export default function VendorsTable({
           setUsers([]); // Handle error state
         });
     };
-  
+
     fetchUsers();
   }, []);
-  
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -70,7 +74,9 @@ export default function VendorsTable({
 
   const filteredUsers = useMemo(() => {
     return users.filter((user) =>
-      user.name.toLowerCase().includes(searchTerm.toLowerCase())
+    (user.name || "").toLowerCase().includes(searchTerm.toLowerCase()) ||
+    (user.email || "").toLowerCase().includes(searchTerm.toLowerCase()) ||
+    String(user.id).toLowerCase().includes(searchTerm.toLowerCase())
     );
   }, [searchTerm, users]);
 
@@ -82,9 +88,8 @@ export default function VendorsTable({
 
   //  navigate func
   const handleUserNavigation = (row) => {
-    
     setSelectedUsers(row);
-
+    setSelectedPlayer(null)
     navigate("/vendorItems");
   };
 
@@ -155,21 +160,7 @@ export default function VendorsTable({
                 <TableCell align="center" sx={{ color: "#AAADAF" }}>
                   Wallet
                 </TableCell>
-                {/* <TableCell align="right" sx={{ color: "#AAADAF" }}>
-                  Basic ad
-                </TableCell>
-                <TableCell align="right" sx={{ color: "#AAADAF" }}>
-                  Total Ads
-                </TableCell>
-                <TableCell align="right" sx={{ color: "#AAADAF" }}>
-                  Total Price
-                </TableCell>
-                <TableCell align="right" sx={{ color: "#AAADAF" }}>
-                  mobile number
-                </TableCell>
-                <TableCell align="right" sx={{ color: "#AAADAF" }}>
-                  Country
-                </TableCell> */}
+         
               </TableRow>
             </TableHead>
             <TableBody>
@@ -182,8 +173,7 @@ export default function VendorsTable({
                   onClick={() => handleUserNavigation(row)}
                   sx={{ cursor: "pointer" }}
                 >
-                   <TableCell align="left" sx={{ color: "#fff" }}>
-                  
+                  <TableCell align="left" sx={{ color: "#fff" }}>
                     <>{row.id}</>
                   </TableCell>
                   <TableCell
@@ -199,30 +189,27 @@ export default function VendorsTable({
                     {/* <span className="toggle-span">User Name</span> */}
                     <>
                       <Avatar src={row.image}></Avatar>
-                      {row.name?row.name : "null"}
+                      {row.name ? row.name : "null"}
                     </>
                   </TableCell>
                   <TableCell align="center" sx={{ color: "#fff" }}>
-              
-                    <>{row.email?row.email : "null"}</>
+                    <>{row.email ? row.email : "null"}</>
                   </TableCell>
                   <TableCell align="center" sx={{ color: "#fff" }}>
-               
-                    <>{row.phone?row.phone : "null"}</>
+                    <>{row.phone ? row.phone : "null"}</>
                   </TableCell>
                   <TableCell align="center" sx={{ color: "#fff" }}>
-                  
                     <>{row.wallet}</>
                   </TableCell>
-         
                 </TableRow>
               ))}
             </TableBody>
           </Table>
         </TableContainer>
         <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
+          rowsPerPageOptions={[5, 10, 25 , 50]}
           component="div"
+          className="table-pag"
           count={users.length}
           rowsPerPage={rowsPerPage}
           page={page}
@@ -230,13 +217,16 @@ export default function VendorsTable({
           onRowsPerPageChange={handleChangeRowsPerPage}
           sx={{
             color: "#fff",
-            overflowX:"hidden",
+            overflowX: "hidden",
             "& .MuiSelect-icon": { color: "#fff" },
             "& .MuiTablePagination-actions button": { color: "#fff" },
+            "@media (max-width: 550px)": {
+              display:"flex",
+             flexDirection:"column"
+            },
           }}
         />
       </Paper>
     </Box>
   );
 }
-

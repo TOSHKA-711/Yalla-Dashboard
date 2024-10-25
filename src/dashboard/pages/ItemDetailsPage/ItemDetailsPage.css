@@ -64,10 +64,9 @@
     
   }
 @media screen and (max-width:450px) {
-    .swiper {
-        height: 50vw;
-    
-  }
+    .item-details {
+        width: 90%;
+    }
   .item-details .content {
     padding: 0 !important;
   }

@@ -55,8 +55,35 @@
   }
   
 
+  @media screen and (max-width:1495px) {
+    .DetailsCard {
+      width: 42vw;
+
+    }
+  }
+  @media screen and (max-width:1200px) {
+    .DetailsCard {
+      width: 40vw;
+
+    }
+  }
+  @media screen and (max-width:980px) {
+    .DetailsCard {
+      width: 37vw;
+
+    }
+  }
   @media screen and (max-width:780px) {
     .DetailsCard {
         width: 100%;}
+        .time-text {
+          font-size: 25px !important;
+        }
+        .item-details .content .details span{
+
+          gap: 10px;
+          font-size: 14px !important;
+        
+      }
         
   }

@@ -72,6 +72,10 @@
     background-color: #d8d9db;
     color: #ed1b24;
   }
+  .user-btns button.active {
+    background-color: rgb(39, 175, 39);
+    color: #fff;
+  }
   
   .user-card .down{
     gap: 20px;
@@ -111,6 +115,7 @@
   .user-card .down {
     gap: 20px;
     flex-direction: column;
+    font-size: 14px;
   }
   }
   @media screen and (max-width:556px) {

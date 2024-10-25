@@ -20,17 +20,17 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Button from "@mui/material/Button";
 import ItemPage from "../ItemPage/ItemPage";
+import Failed from "../../items/Failed/Failed";
+import { CircularProgress } from "@mui/material";
 
 export default function ItemDetailsPage() {
-  const { selectedFacility } = useContext(MyContext);
+  const { selectedFacility, selectedAd } = useContext(MyContext);
   const [expanded, setExpanded] = useState(false);
   const [user, setUser] = useState({});
   const [scheduled, setScheduled] = useState([]);
   const [times, setTimes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [timesLoading, setTimesLoading] = useState(false);
-
-  const navigate = useNavigate();
 
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -39,9 +39,8 @@ export default function ItemDetailsPage() {
       await delay(1000);
       try {
         const response = await axios.get(
-          // `/api/public/dashboard/getItem/4`
-          `https://app.yallapadel.club/public/dashboard/getItem/4`
-          );
+          `https://app.yallapadel.club/public/dashboard/getItem/${selectedAd.id}`
+        );
         setUser(response.data.data);
       } catch (error) {
         console.error("Error fetching user:", error);
@@ -58,8 +57,8 @@ export default function ItemDetailsPage() {
       await delay(1000);
       try {
         const response = await axios.get(
-          // `/api/public/dashboard/getScheduled/4`
-          `https://app.yallapadel.club/public/dashboard/getScheduled/4`
+          // `https://app.yallapadel.club/public/dashboard/getScheduled/${selectedAd.id}`
+          `https://app.yallapadel.club/public/dashboard/getScheduled/${selectedAd.id}`
         );
         setScheduled(response.data);
       } catch (error) {
@@ -79,16 +78,17 @@ export default function ItemDetailsPage() {
   const fetchTimes = async (day, month) => {
     try {
       const response = await axios.get(
-        // `/api/public/dashboard/getTime`
-        `https://app.yallapadel.club/public/dashboard/getTime`
-        , {
-        params: {
-          play_ground_id: 4,
-          month,
-          day,
-        },
-      });
+        `https://app.yallapadel.club/public/dashboard/getTime`,
+        {
+          params: {
+            play_ground_id: selectedAd.id,
+            month,
+            day,
+          },
+        }
+      );
       setTimes(response.data.data);
+      // console.log(response.data.data);
     } catch (error) {
       console.error("Error fetching times:", error);
       setTimes([]);
@@ -100,7 +100,9 @@ export default function ItemDetailsPage() {
   return (
     <div className="item-details flex-col">
       {loading ? (
-        <div>Loading...</div>
+        <div>
+          <CircularProgress />
+        </div>
       ) : (
         <ImagesSlider images={user?.images || []} />
       )}
@@ -108,41 +110,39 @@ export default function ItemDetailsPage() {
       <div className="content flex-col">
         {!loading && (
           <>
-
-       
-          <ItemPage/>
-          <div className="details">
-            <DetailsCard
-              first={user?.title || "No title"}
-              last="playground"
-              // third={` / ${user?.playground?.num_of_playground || "0"}`}
-              icon={<PiCourtBasketballFill className="moon" />}
-            />
-            <DetailsCard
-              first={user?.city?.path || "Unknown location"}
-              last="location"
-              third=""
-              icon={<FaMapLocationDot className="moon" />}
-            />
-            <DetailsCard
-              first={user?.price || "0"}
-              last="price"
-              third=" SAR"
-              icon={<FaSackDollar className="moon" />}
-            />
-            <DetailsCard
-              first={user?.description || "N/A"}
-              last="description"
-              third={`/ ${user?.item_type|| ""}`}
-              icon={<IoDocumentSharp className="moon" />}
-            />
-          </div>
+            <ItemPage />
+            <div className="details">
+              <DetailsCard
+                first={user?.title || "No title"}
+                last="playground"
+                // third={` / ${user?.playground?.num_of_playground || "0"}`}
+                icon={<PiCourtBasketballFill className="moon" />}
+              />
+              <DetailsCard
+                first={user?.city?.path || "Unknown location"}
+                last="location"
+                third=""
+                icon={<FaMapLocationDot className="moon" />}
+              />
+              <DetailsCard
+                first={user?.price || "0"}
+                last="price"
+                third=" SAR"
+                icon={<FaSackDollar className="moon" />}
+              />
+              <DetailsCard
+                first={user?.description || "N/A"}
+                last="description"
+                third={`/ ${user?.item_type || ""}`}
+                icon={<IoDocumentSharp className="moon" />}
+              />
+            </div>
           </>
         )}
       </div>
 
       <div className="according flex-col">
-        {!loading &&
+        {!loading & (scheduled.length > 0) ? (
           scheduled.map((item, index) => {
             const panelId = `panel${index}`;
             return (
@@ -178,7 +178,7 @@ export default function ItemDetailsPage() {
                 <AccordionDetails>
                   {timesLoading ? (
                     <div>Loading times...</div>
-                  ) : (
+                  ) : times ? (
                     times.map((time, idx) =>
                       time.schedules.map((schedule, scheduleIdx) => (
                         <Button
@@ -193,11 +193,16 @@ export default function ItemDetailsPage() {
                         </Button>
                       ))
                     )
+                  ) : (
+                    <h2> no Schedules dates found </h2>
                   )}
                 </AccordionDetails>
               </Accordion>
             );
-          })}
+          })
+        ) : (
+          <Failed text="No Scheduled Found" />
+        )}
       </div>
     </div>
   );

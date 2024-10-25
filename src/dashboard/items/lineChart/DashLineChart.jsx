@@ -36,7 +36,6 @@ export default class DashLineChart extends PureComponent {
       ];
 
       this.setState({ data });
-      console.log(data);
     } catch (error) {
       console.error("Error fetching data:", error);
       this.setState({ error: "Failed to load data." });

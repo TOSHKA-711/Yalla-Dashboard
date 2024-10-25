@@ -1,21 +1,13 @@
 
-.cards{
-    display: flex;
-    flex-wrap: wrap;
+.items-cards{
+display: grid;
+grid-template-columns: 1fr 1fr;
     gap: 20px;
-    align-items: center;
+    align-items:stretch;
     width: 100% !important;
   }
   
-  @media screen and (max-width:980px) {
-    .cards{
-     display: flex;
-     flex-wrap: wrap;
-        gap: 20px;
-        align-items: center;
-        width: 100% !important;
-    }
-  }
+
   
   @media screen and (max-width:1500px) {
     .css-1xae4et-MuiPaper-root-MuiCard-root {
@@ -26,6 +18,16 @@
     .css-1ckp1zj-MuiCardMedia-root {
         /* scale: 0.7 !important; */
         object-fit: unset !important;
+    }
+  }
+
+  @media screen and (max-width:780px) {
+    .items-cards{
+      display: grid ;
+      grid-template-columns: 1fr;
+        gap: 20px;
+   
+       
     }
   }
   
@@ -40,4 +42,9 @@
     .css-rbvuux-MuiTypography-root {
         font-size: 20px !important;
     }
+    .MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation1.MuiCard-root.css-dwizxd-MuiPaper-root-MuiCard-root {
+      flex-direction: column-reverse;
+      align-items: center;
+      gap: 0;
+  }
   }

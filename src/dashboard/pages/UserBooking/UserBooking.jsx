@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Avatar } from "@mui/material";
+import { Avatar, CircularProgress } from "@mui/material";
 import "./UserBooking.css";
 
 import { CiUser } from "react-icons/ci";
@@ -15,9 +15,9 @@ import { MyContext } from "../../ContextApi/Provider";
 import { useContext } from "react";
 import UserBookingCard from "../../items/UserBookingCard/UserBookingCard";
 import axios from "axios";
+import TransTable from "../../items/TransTable/TransTable";
 
 export default function UserBooking() {
-  const [books, setBooks] = useState([]);
   const { selectedUsers, selectedPlayer } = useContext(MyContext);
   const [user, setUser] = useState({});
 
@@ -26,73 +26,93 @@ export default function UserBooking() {
   // Function to simulate a delay
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        // await delay(2000); 
-        const response = await axios.get(
-          `https://app.yallapadel.club/public/dashboard/getUserById/${selectedPlayer || selectedUsers.id}`
-          // `/api/public/dashboard/getUserById/${selectedPlayer || selectedUsers.id}`
-          // `/api/public/dashboard/getUserById/9`
-        
-        );
+  const fetchUser = async () => {
+    try {
+      const response = await axios.get(
+        `https://app.yallapadel.club/public/dashboard/getUserById/${
+          selectedPlayer || selectedUsers.id
+        }`
+      
+      );
 
-        setUser(response.data.data);
-        // console.log(response.data.data);
-      } catch (error) {
-        console.error("Error fetching user:", error);
-        setUser([]); // Handle error
-      } finally {
-        setLoading(false); // Set loading to false after fetching
-      }
-    };
+      setUser(response.data.data);
+      // console.log(response.data.data);
+    } catch (error) {
+      console.error("Error fetching user:", error);
+      setUser([]); // Handle error
+    } finally {
+      setLoading(false); // Set loading to false after fetching
+    }
+  };
+
+  useEffect(() => {
 
     fetchUser();
   }, []);
 
+  // handle user Status
+
+  const freezeUser = async () => {
+    try {
+      const response = await axios.get(
+        `https://app.yallapadel.club/public/dashboard/changeUserStatus/${
+          selectedPlayer || selectedUsers.id
+        }/0`
+      );
+
+      console.log(response.data.message);
+    } catch (error) {
+      console.error("Error freezing user:", error);
+    }
+    fetchUser();
+  };
+  const activeUser = async () => {
+    try {
+      const response = await axios.get(
+        `https://app.yallapadel.club/public/dashboard/changeUserStatus/${
+          selectedPlayer || selectedUsers.id
+        }/1`
+      );
+
+      console.log(response.data.message);
+    } catch (error) {
+      console.error("Error freezing user:", error);
+    }
+    fetchUser();
+  };
+
   // Render loading state or the actual content
   if (loading) {
-    return <h1>Loading...</h1>; // You can also use a spinner component here
+    return <h1><CircularProgress/></h1>; // You can also use a spinner component here
   }
 
   return (
     <div className="bookings flex-row">
       <div className="user-data flex-col flex-4">
-        {/* <UserNumbers /> */}
         <UserBookingCard className="userBooking" />
-        {/* <UserTable /> */}
+        <TransTable url={`https://app.yallapadel.club/public/dashboard/getUserWalletTransactions/${selectedPlayer || selectedUsers.id}`} title="Transactions"/>
+        {/* <TransTable url={`https://app.yallapadel.club/public/dashboard/getUserWalletTransactions/12`}/> */}
+        
       </div>
       <div className="user-card flex-col flex-1">
         <div className="user-name flex-col">
           <Avatar src={user.image} className="img" />
-          <h2>{user.name?user.name:"null"}</h2>
+          <h2>{user.name ? user.name : "null"}</h2>
           <span className="divider"></span>
         </div>
         <div className="down flex-col">
           <div className="user-details flex-col">
             <span className=" flex-row">
               <CiUser className="icon" />
-              <p>-ID  {selectedUsers.id?selectedUsers.id : selectedPlayer } </p>
+              <p>-ID {selectedPlayer ? selectedPlayer :  selectedUsers.id} </p>
             </span>
-            {/* <span className=" flex-row">
-              <TbWorld className="icon" />
-              <p>{user.items.city}</p>
-            </span> */}
-            {/* <span className=" flex-row">
-              <SlCalender className="icon" />
-              <p>Joined At : 20 / 10 / 2023</p>
-            </span> */}
-            {/* <span className=" flex-row">
-              <TiClipboard className="icon" />
-              <p>{user.Total_Ads} Ads</p>
-            </span> */}
             <span className=" flex-row">
               <MdOutlineMailOutline className="icon" />
-              <p>{user.email?user.email:"null"}</p>
+              <p>{user.email ? user.email : "null"}</p>
             </span>
             <span className=" flex-row">
               <CiPhone className="icon" />
-              <p>{user.phone?user.name:"null"}</p>
+              <p>{user.phone ? user.name : "null"}</p>
             </span>
             <span className=" flex-row">
               <CiLock className="icon" />
@@ -105,10 +125,17 @@ export default function UserBooking() {
               <RiDeleteBin6Line className="icon" />
               <span>Delete Account</span>
             </button>
-            <button className="freeze flex-row">
-              <MdBlock className="icon" />
-              <span>freeze Account</span>
-            </button>
+            {user.status === 0 ? (
+              <button className="active flex-row" onClick={()=>activeUser()}>
+                <RiDeleteBin6Line className="icon" />
+                <span>Active Account</span>
+              </button>
+            ) : (
+              <button className="freeze flex-row" onClick={()=>freezeUser()}>
+                <MdBlock className="icon" />
+                <span>freeze Account</span>
+              </button>
+            )}
           </div>
         </div>
       </div>

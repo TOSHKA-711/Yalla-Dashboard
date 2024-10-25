@@ -17,6 +17,8 @@ import { IoSettingsOutline } from "react-icons/io5";
 import { IoIosLogOut } from "react-icons/io";
 import { FaArrowsLeftRight } from "react-icons/fa6";
 import { LuTimerReset } from "react-icons/lu";
+import { MdOutlinePayment } from "react-icons/md";
+import { MdPayments } from "react-icons/md";
 // ----- ant --------
 
 import { Breadcrumb, Layout, Menu, theme } from "antd";
@@ -82,10 +84,17 @@ export default function SideBar() {
       </Link>
     ),
     getItem(
-      "Chat",
-      "chat",
-      <Link to="/chat">
-        <FaRegEnvelope />{" "}
+      "Payment",
+      "Payment",
+      <Link to="/payment">
+        <MdOutlinePayment />{" "}
+      </Link>
+    ),
+    getItem(
+      "Withdraws",
+      "Withdraws",
+      <Link to="/withdraws">
+        <MdPayments />{" "}
       </Link>
     ),
     getItem(
@@ -154,13 +163,22 @@ export default function SideBar() {
               </Link>
 
               <Link
-                to="/chat"
+                to="/payment"
                 className={`flex-row link transition ${
-                  pathname === "chat" && "active"
+                  pathname === "payment" && "active"
                 }`}
               >
-                <FaRegEnvelope className="icon" />
-                <span>Chat</span>
+                <MdOutlinePayment className="icon" />
+                <span>Payment</span>
+              </Link>
+              <Link
+                to="/withdraws"
+                className={`flex-row link transition ${
+                  pathname === "withdraws" && "active"
+                }`}
+              >
+                <MdPayments className="icon" />
+                <span>WithDraws</span>
               </Link>
             </div>
           </div>

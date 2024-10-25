@@ -1,0 +1,93 @@
+.VendorNumbers {
+  height: 20vh;
+  gap: 20px;
+  align-items: stretch;
+  width: 100% !important;
+  /* display: grid; */
+  /* grid-template-columns: repeat(3 , 1fr); */
+}
+.VendorNumbers .child {
+  background: linear-gradient(90deg, #3c97f3, rgba(60, 151, 243, 0)) !important;
+  flex-grow: 1;
+  border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
+  text-align: center;
+  gap: 15px;
+  height: 100%;
+  width: 17rem;
+}
+.VendorNumbers .child .container {
+  width: 50%;
+  text-align: center;
+  gap: 15px;
+  height: 100%;
+}
+.VendorNumbers .child span {
+  align-items: flex-start;
+}
+
+@media screen and (max-width: 1495px) {
+  .VendorNumbers .child {
+    width: 12rem;
+  }
+  .VendorNumbers .child span {
+    align-items: flex-start;
+    font-size: 14px;
+  }
+}
+@media screen and (max-width: 1084px) {
+  .VendorNumbers {
+    height: 17vh !important;
+  }
+
+  .VendorNumbers .child span {
+    align-items: flex-start;
+    font-size: 14px;
+  }
+}
+@media screen and (max-width: 1000px) {
+  .VendorNumbers {
+    flex-wrap: wrap !important;
+    height: unset !important;
+  }
+  .VendorNumbers .child {
+    width: 14rem;
+  }
+}
+
+@media screen and (max-width: 840px) {
+  .VendorNumbers .child span {
+    align-items: flex-start;
+    font-size: 13px;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .VendorNumbers .child {
+    width: 16rem;
+  }
+  .css-rbklcn-MuiResponsiveChart-container {
+    height: 140px !important;
+  }
+}
+@media screen and (max-width: 480px) {
+  .VendorNumbers .child {
+    width: 12rem;
+  }
+  .VendorNumbers .child span {
+    align-items: flex-start;
+    font-size: 11px;
+  }
+}
+@media screen and (max-width: 400px) {
+  .VendorNumbers .child {
+    width: 10rem;
+  }
+  .VendorNumbers .child span {
+    align-items: flex-start;
+    font-size: 10px;
+  }
+}

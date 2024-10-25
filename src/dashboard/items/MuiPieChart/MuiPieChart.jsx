@@ -137,10 +137,7 @@ export default function MuiPieChart() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          // Replace with environment variable if possible
-          'https://app.yallapadel.club/public/dashboard/getCardCounter'
-        );
+        const response = await axios.get("https://app.yallapadel.club/public/dashboard/getCardCounter");
         const { total_users, playgrounds, bookings, total_items } = response.data;
 
         // Create data structure for the pie chart
@@ -175,10 +172,10 @@ export default function MuiPieChart() {
   }, []);
 
   // Adjust chart properties based on screen size
-  const chartSize = isSmallScreen ? 150 : 200;
-  const cx = isSmallScreen ? 150 : 200;
-  const cy = isSmallScreen ? 70 : 100;
-  const innerRadius = isSmallScreen ? 50 : 70;
+  const chartSize = isSmallScreen ? 120 : 200; // Smaller for small screens
+  const cx = isSmallScreen ? 120 : 200;
+  const cy = isSmallScreen ? 60 : 100;
+  const innerRadius = isSmallScreen ? 40 : 70;
 
   return (
     <div
@@ -211,53 +208,54 @@ export default function MuiPieChart() {
             },
           ]}
           sx={{
-    '& .MuiChartsLegend-root': {
-      display: 'none',
-      width: { xs: '44vw', sm: 'auto' },
-    height: { xs: '107px', sm: 'auto' },
-    },
-  }}
+            '& .MuiChartsLegend-root': {
+              display: 'none',
+              width: { xs: '44vw', sm: 'auto' },
+              height: { xs: '107px', sm: 'auto' },
+            },
+          }}
           legend={{ display: false }}
           height={chartSize}
-          width={isSmallScreen ? 300 : 400}
+          width={isSmallScreen ? 250 : 400} // Smaller width for small screens
         />
       )}
 
-{/* Legend for the pie chart */}
-{!loading && !error && (
-  <div
-    style={{
-      marginTop: "20px",
-      display: "flex",
-      justifyContent: "center",
-      flexWrap: isSmallScreen ? "wrap" : "nowrap",
-      flexDirection: isSmallScreen ? "column" : "row",
-      alignItems: "center",
-    }}
-  >
-    {desktopOS.map((item) => (
-      <div
-        key={item.label}
-        style={{
-          display: "flex",
-          alignItems: "center",
-          margin: isSmallScreen ? "5px 0" : "0 10px",
-        }}
-      >
+      {/* Legend for the pie chart */}
+      {!loading && !error && (
         <div
           style={{
-            width: "16px",
-            height: "16px",
-            backgroundColor: item.color,
-            marginRight: "8px",
+            marginTop: "15px",
+            display: "flex",
+            justifyContent: "center",
+            flexWrap: isSmallScreen ? "wrap" : "nowrap",
+            flexDirection: isSmallScreen ? "column" : "row",
+            alignItems: "center",
           }}
-          className="label-text"
-        />
-        <span>{item.label}</span>
-      </div>
-    ))}
-  </div>
-)}
+        >
+          {desktopOS.map((item) => (
+            <div
+              key={item.label}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                margin: isSmallScreen ? "3px 0" : "0 8px",
+                fontSize: isSmallScreen ? "12px" : "14px", // Smaller text for small screens
+              }}
+            >
+              <div
+                style={{
+                  width: isSmallScreen ? "12px" : "16px",
+                  height: isSmallScreen ? "12px" : "16px",
+                  backgroundColor: item.color,
+                  marginRight: "6px",
+                }}
+                className="label-text"
+              />
+              <span>{item.label}</span>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

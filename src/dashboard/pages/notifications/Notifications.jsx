@@ -138,6 +138,7 @@ export default function Notifications() {
                   sx={{
                     border: "1px solid #747474",
                     borderRadius: "10px",
+                    color:"#fff"
                   }}
                 >
                   <MenuItem value="Only Users">

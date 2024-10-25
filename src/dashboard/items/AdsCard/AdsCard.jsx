@@ -14,6 +14,8 @@ import img from "../../../assets/imgs/padel_court_2.png";
 import { MyContext } from "../../ContextApi/Provider";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import Failed from "../Failed/Failed";
+import { CircularProgress } from "@mui/material";
 
 export default function AdsCard() {
   const { selectedUsers, setSelectedAd } = useContext(MyContext);
@@ -24,16 +26,17 @@ export default function AdsCard() {
   const navigate = useNavigate();
   const theme = useTheme();
 
+// console.log(selectedUsers);
+
   useEffect(() => {
     const fetchUser = async () => {
       try {
         const response = await axios.get(
           `https://app.yallapadel.club/public/dashboard/getAgentById/${selectedUsers.id}`
-          // `/api/public/dashboard/getAgentById/12`
         );
 
         setUser(response.data.data);
-        // console.log(response.data.data);
+          //  console.log("=>user", response.data.data);
 
         if (response.data.data.items && response.data.data.items.length > 0) {
           setUserBookingLength(true);
@@ -62,8 +65,8 @@ export default function AdsCard() {
     navigate("/itemDetailsPage");
   };
 
-  if (loading) return <h3>Loading...</h3>; // Loading state
-  if (error) return <h3>{error}</h3>; // Error state
+  if (loading) return <h3><CircularProgress/></h3>; // Loading state
+  if (error) return <Failed text="Fetching Data Failed ...!" />; // Error state
 
   return (
     <div className="cards ad">
@@ -90,7 +93,7 @@ export default function AdsCard() {
                 sx={{
                   display: "flex",
                   flexDirection: "column",
-                 
+
                   width: "100%",
                 }}
               >
@@ -132,16 +135,18 @@ export default function AdsCard() {
               </Box>
               <CardMedia
                 component="img"
-                sx={{ width: "10rem", height: "8rem" }}
-                image={book.image}
-                // image={img}
+                sx={{ width: "20rem", height: "10rem", alignSelf: "center" , "@media (max-width : 600px) " : {
+                  width: "15rem",
+                  height: "8rem",
+                } }}
+                image={book.image ? book.image : img}
                 alt="Live from space album cover"
               />
             </Card>
           );
         })
       ) : (
-        <h1>No bookings found.</h1> // Display a message if no bookings exist
+        <h2>No bookings found ...</h2> // Display a message if no bookings exist
       )}
     </div>
   );
