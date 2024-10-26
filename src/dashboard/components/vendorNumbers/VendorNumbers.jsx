@@ -14,7 +14,7 @@ export default function VendorNumbers({oneN,oneC,twoN,twoC,threeN,threeC}) {
           <h4>{oneC}</h4>
           <h2>{oneN}</h2>
         </span>
-        <ProgressBar per={true} width="20%" height="80%" value={oneN} />
+        <ProgressBar per={false} width="20%" height="80%" value={oneN} />
   
       </div>
       <div className="child flex-row">
@@ -22,14 +22,14 @@ export default function VendorNumbers({oneN,oneC,twoN,twoC,threeN,threeC}) {
           <h4>{twoC}</h4>
           <h2>{twoN}</h2>
         </span>
-        <ProgressBar per={true} width="20%" height="80%" value={twoN} />
+        <ProgressBar per={false} width="20%" height="80%" value={twoN} />
       </div>
       <div className="child flex-row">
         <span className=" flex-col">
           <h4>{threeC}</h4>
           <h2>{threeN}</h2>
         </span>
-        <ProgressBar per={true} width="20%" height="80%" value={threeN} />
+        <ProgressBar per={false} width="20%" height="80%" value={threeN} />
       </div>
     </div>
  
