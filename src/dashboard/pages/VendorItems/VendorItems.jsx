@@ -372,11 +372,12 @@ import "react-toastify/dist/ReactToastify.css";
 // }
 
 function PaymentModal({ sortOpen, handleSortClose }) {
+  const { selectedUsers} = useContext(MyContext);
   const [image, setImage] = useState(null);
   const [withDrawPayload, setWithDrawPayload] = useState({
     image: null,
     remarks: "",
-    vendor_id: "",
+    vendor_id: selectedUsers.id,
     withdrawal_amount: "",
   });
   const [loading, setLoading] = useState(false);
@@ -422,7 +423,7 @@ function PaymentModal({ sortOpen, handleSortClose }) {
     const formData = new FormData();
     formData.append("image", withDrawPayload.image);
     formData.append("remarks", withDrawPayload.remarks);
-    formData.append("vendor_id", withDrawPayload.vendor_id.trim());
+    formData.append("vendor_id", selectedUsers.id);
     formData.append("withdrawal_amount", withDrawPayload.withdrawal_amount);
 
     const url = "https://app.yallapadel.club/public/dashboard/withdrawWalletVendor";
@@ -488,7 +489,7 @@ function PaymentModal({ sortOpen, handleSortClose }) {
               </div>
             )}
           </div>
-          <div className="child with-label">
+          {/* <div className="child with-label">
             <input
               className="first"
               type="number"
@@ -498,7 +499,7 @@ function PaymentModal({ sortOpen, handleSortClose }) {
               disabled={loading} // Disable input while loading
             />
             <p>Vendor ID</p>
-          </div>
+          </div> */}
           <div className="child with-label">
             <input
               className="first"
