@@ -11,6 +11,7 @@
   min-width: 400px;
   /* width: 50rem !important; */
   max-width: unset !important;
+  max-height: calc(110% - 64px) !important;
 }
 
 .payment-dialog-paper .filter-paper {
@@ -83,6 +84,7 @@
   }
   .payment-dialog-paper .dialog-content .details .child .pay-card {
     flex-direction: row-reverse;
+    scale: .8;
   }
   .payment-dialog-paper .dialog-content {
     overflow-y: hidden;

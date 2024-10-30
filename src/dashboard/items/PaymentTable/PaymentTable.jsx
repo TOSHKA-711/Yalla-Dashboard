@@ -81,7 +81,7 @@ function PaymentModal({
                 </span>
                 <span className=" flex-row">
                   <MdOutlineMailOutline className="icon" />
-                  <p>{user.user ? user.user.email : "null"}</p>
+                  <p style={{lineBreak: "anywhere"}}>{user.user ? user.user.email : "null"}</p>
                 </span>
                 <span className=" flex-row">
                   <CiPhone className="icon" />
@@ -304,11 +304,14 @@ export default function PaymentTable() {
                     Phone
                   </TableCell>
                   <TableCell align="center" sx={{ color: "#AAADAF" }}>
-                    total
+                    Total
                   </TableCell>
 
                   <TableCell align="center" sx={{ color: "#AAADAF" }}>
-                    type
+                    Type
+                  </TableCell>
+                  <TableCell align="center" sx={{ color: "#AAADAF" }}>
+                    Status
                   </TableCell>
                 </TableRow>
               </TableHead>
@@ -351,6 +354,14 @@ export default function PaymentTable() {
                     </TableCell>
                     <TableCell align="center" sx={{ color: "#fff" }}>
                       <>{row.type}</>
+                    </TableCell>
+                    <TableCell align="center" sx={{ color: "#fff" }}>
+                      <>
+                      {row.status==0?
+                        <span style={{padding:"10px 20px" , backgroundColor:"rgb(204, 204, 58)" , borderRadius:"5px"}}>Pending</span> :
+                        <span style={{padding:"10px 20px" , backgroundColor:" rgb(44, 170, 44)" , borderRadius:"5px"}}>Approved</span> 
+                       }
+                      </>
                     </TableCell>
                   </TableRow>
                 ))}
