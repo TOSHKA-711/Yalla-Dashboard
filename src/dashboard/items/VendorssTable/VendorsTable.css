@@ -53,6 +53,9 @@
 .table-header .btns button.sort{
   background-color: #111314;
 }
+.table-header .btns button.add{
+  background-color: #27cb3a;
+}
 
 .table-head.hidden{
 /* display: none; */
@@ -64,7 +67,15 @@ display: none;
 
 
 
-@media screen and (max-width:935px) {
+@media screen and (max-width:600px) {
+  .table-header .btns.add-vendor-btns {
+    flex-wrap: wrap;
+}
+.table-header .btns button.add {
+  width: 85%;
+}
+}
+@media screen and (max-width:1260px) {
 .toggle-span{
   display: hidden !important;
 }

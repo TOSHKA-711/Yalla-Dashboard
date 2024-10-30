@@ -15,14 +15,210 @@ import { Avatar, useMediaQuery } from "@mui/material";
 import { CiSearch } from "react-icons/ci";
 import { CiFilter } from "react-icons/ci";
 import { BiSort } from "react-icons/bi";
+import { IoMdPersonAdd } from "react-icons/io";
+import { FaCloudUploadAlt } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { MyContext } from "../../ContextApi/Provider";
 import axios from "axios";
+
+import Dialog from "@mui/material/Dialog";
+import DialogContent from "@mui/material/DialogContent";
+import { CircularProgress, DialogTitle } from "@mui/material";
+
+function AddVendorModal({ AddVendorOpen, handleAddVendorClose }) {
+  const { selectedUsers } = useContext(MyContext);
+  const [image, setImage] = useState(null);
+  const [withDrawPayload, setWithDrawPayload] = useState({
+    image: null,
+    name: "",
+    email: "",
+    phone: "",
+    password: "",
+  });
+  const [loading, setLoading] = useState(false);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setWithDrawPayload((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      setImage(URL.createObjectURL(file));
+      setWithDrawPayload((prev) => ({ ...prev, image: file }));
+    }
+    event.target.value = ""; // Reset the input value
+  };
+
+  const handleUploadClick = () => {
+    document.getElementById("file-input").click();
+  };
+
+  useEffect(() => {
+    return () => {
+      if (image) {
+        URL.revokeObjectURL(image);
+      }
+    };
+  }, [image]);
+
+  const reloadPage = () => {
+    window.location.reload();
+ };
+
+  const handleSubmitUpload = async (e) => {
+    e.preventDefault();
+    if (
+      !withDrawPayload.name ||
+      !withDrawPayload.email ||
+      !withDrawPayload.password ||
+      !withDrawPayload.image ||
+      !withDrawPayload.phone
+    ) {
+      Window.alert("Please fill in all required fields.");
+
+      return;
+    }
+
+    setLoading(true); // Set loading state
+    const formData = new FormData();
+    formData.append("image", withDrawPayload.image);
+    formData.append("name", withDrawPayload.name);
+    formData.append("email", withDrawPayload.email);
+    formData.append("phone", withDrawPayload.phone);
+    formData.append("password", withDrawPayload.password);
+
+    const url = "https://app.yallapadel.club/public/dashboard/createVendor";
+
+    try {
+      const response = await axios.post(url, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      console.log(response.data.message);
+      window.alert(response.data.message);
+      reloadPage();
+    } catch (error) {
+      console.error(
+        "There was an error!",
+        error.response?.data || error.message
+      );
+      window.alert(
+        "There was an error!",
+        error.response?.data || error.message
+      );
+    } finally {
+      setLoading(false); // Reset loading state
+      handleAddVendorClose(); // Close modal
+    }
+  };
+
+  return (
+    <Dialog
+      open={AddVendorOpen}
+      keepMounted
+      onClose={handleAddVendorClose}
+      aria-describedby="alert-dialog-slide-description"
+      classes={{ paper: "withdraw-dialog-paper" }} // Custom CSS class for dialog
+    >
+      <DialogTitle className="dialog-title">{"Create Vendor"}</DialogTitle>
+      <DialogContent className="dialog-content flex-row">
+        <div className="form flex-col">
+          <div className="child with-label">
+            <input
+              type="file"
+              accept="image/*"
+              id="file-input"
+              style={{ display: "none" }}
+              onChange={handleImageChange}
+              name="image"
+            />
+            <button
+              className="child upload flex-row button"
+              onClick={handleUploadClick}
+              disabled={loading} // Disable button while loading
+            >
+              <FaCloudUploadAlt className="icon" />
+              ADD Image
+            </button>
+            {image && (
+              <div style={{ marginTop: "10px" }}>
+                <img
+                  src={image}
+                  alt="Preview"
+                  style={{
+                    maxWidth: "100%",
+                    height: "60px",
+                    borderRadius: "8px",
+                  }}
+                />
+              </div>
+            )}
+          </div>
+          <div className="child with-label">
+            <input
+              className="second"
+              name="name"
+              value={withDrawPayload.name}
+              onChange={handleInputChange}
+              disabled={loading} 
+            ></input>
+            <p>name</p>
+          </div>
+          <div className="child with-label">
+            <input
+              className="first"
+              type="text"
+              name="phone"
+              value={withDrawPayload.phone}
+              onChange={handleInputChange}
+              disabled={loading} // Disable input while loading
+            />
+            <p>Phone Number</p>
+          </div>
+          <div className="child with-label">
+            <input
+              className="first"
+              type="email"
+              name="email"
+              value={withDrawPayload.email}
+              onChange={handleInputChange}
+              disabled={loading} // Disable input while loading
+            />
+            <p>Gmail</p>
+          </div>
+          <div className="child with-label">
+            <input
+              className="first"
+              type="password"
+              name="password"
+              value={withDrawPayload.password}
+              onChange={handleInputChange}
+              disabled={loading} // Disable input while loading
+            />
+            <p>Password</p>
+          </div>
+      
+          <div
+            className="child button"
+            onClick={handleSubmitUpload}
+            disabled={loading}
+          >
+            {loading ? "Creating..." : "Create"}
+          </div>
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+}
 
 export default function VendorsTable({
   handleClickSortOpen,
   handleClickFilterOpen,
 }) {
+  const [AddVendorOpen, setAddVendorOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -41,10 +237,7 @@ export default function VendorsTable({
   useEffect(() => {
     const fetchUsers = () => {
       axios
-        .get(
-         
-          "https://app.yallapadel.club/public/dashboard/getAgent"
-        )
+        .get("https://app.yallapadel.club/public/dashboard/getAgent")
         .then((response) => {
           // Ensure response data is an array before setting it to state
           if (Array.isArray(response.data.data)) {
@@ -73,10 +266,11 @@ export default function VendorsTable({
   };
 
   const filteredUsers = useMemo(() => {
-    return users.filter((user) =>
-    (user.name || "").toLowerCase().includes(searchTerm.toLowerCase()) ||
-    (user.email || "").toLowerCase().includes(searchTerm.toLowerCase()) ||
-    String(user.id).toLowerCase().includes(searchTerm.toLowerCase())
+    return users.filter(
+      (user) =>
+        (user.name || "").toLowerCase().includes(searchTerm.toLowerCase()) ||
+        (user.email || "").toLowerCase().includes(searchTerm.toLowerCase()) ||
+        String(user.id).toLowerCase().includes(searchTerm.toLowerCase())
     );
   }, [searchTerm, users]);
 
@@ -89,144 +283,165 @@ export default function VendorsTable({
   //  navigate func
   const handleUserNavigation = (row) => {
     setSelectedUsers(row);
-    setSelectedPlayer(null)
+    setSelectedPlayer(null);
     navigate("/vendorItems");
   };
 
+  // handle add vendor modal
+  const handleAddVendorClose = () => {
+    setAddVendorOpen(false);
+  };
+  const handleAddVendorOpen = () => {
+    setAddVendorOpen(true);
+  };
+
   return (
-    <Box sx={{ width: "100%" }}>
-      <Paper
-        sx={{
-          width: "100%",
-          mb: 2,
-          backgroundColor: "#272D35",
-          color: "#fff",
-          padding: "20px",
-          borderRadius: "20px",
-        }}
-      >
-        <Toolbar
+    <>
+      <AddVendorModal
+        AddVendorOpen={AddVendorOpen}
+        handleAddVendorClose={handleAddVendorClose}
+      />
+
+      <Box sx={{ width: "100%" }}>
+        <Paper
           sx={{
-            pl: { sm: 2 },
-            pr: { xs: 1, sm: 1 },
+            width: "100%",
+            mb: 2,
+            backgroundColor: "#272D35",
+            color: "#fff",
+            padding: "20px",
+            borderRadius: "20px",
           }}
         >
-          <Typography
-            sx={{ flex: "1 1 100%" }}
-            variant="h6"
-            id="tableTitle"
-            component="div"
+          <Toolbar
+            sx={{
+              pl: { sm: 2 },
+              pr: { xs: 1, sm: 1 },
+            }}
           >
-            <div className="table-header flex-row">
-              <div className="search flex-row">
-                <CiSearch className="icon" />
-                <input
-                  placeholder="search"
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                />
-              </div>
-              <div className="btns flex-row">
-                <button
-                  className="filter flex-row"
-                  onClick={() => handleClickFilterOpen()}
-                >
-                  <CiFilter className="icon" />
-                  <span>Filter</span>
-                </button>
-                <button
-                  className="sort flex-row"
-                  onClick={() => handleClickSortOpen()}
-                >
-                  <BiSort className="icon" />
-                  <span>Sort</span>
-                </button>
-              </div>
-            </div>
-          </Typography>
-        </Toolbar>
-        <TableContainer>
-          <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle">
-            <TableHead className={`table-head ${isSmallScreen && "hidden"}`}>
-              <TableRow>
-                <TableCell sx={{ color: "#AAADAF" }}>ID</TableCell>
-                <TableCell sx={{ color: "#AAADAF" }}>User Name</TableCell>
-                <TableCell align="center" sx={{ color: "#AAADAF" }}>
-                  Email
-                </TableCell>
-                <TableCell align="center" sx={{ color: "#AAADAF" }}>
-                  Phone
-                </TableCell>
-                <TableCell align="center" sx={{ color: "#AAADAF" }}>
-                  Wallet
-                </TableCell>
-         
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {visibleRows.map((row) => (
-                <TableRow
-                  hover
-                  tabIndex={-1}
-                  key={row.id}
-                  // value={row.Basic_ad}
-                  onClick={() => handleUserNavigation(row)}
-                  sx={{ cursor: "pointer" }}
-                >
-                  <TableCell align="left" sx={{ color: "#fff" }}>
-                    <>{row.id}</>
-                  </TableCell>
-                  <TableCell
-                    component="th"
-                    scope="row"
-                    sx={{
-                      color: "#fff",
-                      display: "flex",
-                      gap: "5px",
-                      alignItems: "center",
-                    }}
+            <Typography
+              sx={{ flex: "1 1 100%" }}
+              variant="h6"
+              id="tableTitle"
+              component="div"
+            >
+              <div className="table-header flex-row">
+                <div className="search flex-row">
+                  <CiSearch className="icon" />
+                  <input
+                    placeholder="search"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                  />
+                </div>
+                <div className="btns add-vendor-btns flex-row">
+                  <button
+                    className="filter flex-row"
+                    onClick={() => handleClickFilterOpen()}
                   >
-                    {/* <span className="toggle-span">User Name</span> */}
-                    <>
-                      <Avatar src={row.image}></Avatar>
-                      {row.name ? row.name : "null"}
-                    </>
+                    <CiFilter className="icon" />
+                    <span>Filter</span>
+                  </button>
+                  <button
+                    className="sort flex-row"
+                    onClick={() => handleClickSortOpen()}
+                  >
+                    <BiSort className="icon" />
+                    <span>Sort</span>
+                  </button>
+                  <button
+                    className="add flex-row"
+                    onClick={() => handleAddVendorOpen()}
+                  >
+                    <IoMdPersonAdd className="icon" />
+                    <span>Add Vendor</span>
+                  </button>
+                </div>
+              </div>
+            </Typography>
+          </Toolbar>
+          <TableContainer>
+            <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle">
+              <TableHead className={`table-head ${isSmallScreen && "hidden"}`}>
+                <TableRow>
+                  <TableCell sx={{ color: "#AAADAF" }}>ID</TableCell>
+                  <TableCell sx={{ color: "#AAADAF" }}>User Name</TableCell>
+                  <TableCell align="center" sx={{ color: "#AAADAF" }}>
+                    Email
                   </TableCell>
-                  <TableCell align="center" sx={{ color: "#fff" }}>
-                    <>{row.email ? row.email : "null"}</>
+                  <TableCell align="center" sx={{ color: "#AAADAF" }}>
+                    Phone
                   </TableCell>
-                  <TableCell align="center" sx={{ color: "#fff" }}>
-                    <>{row.phone ? row.phone : "null"}</>
-                  </TableCell>
-                  <TableCell align="center" sx={{ color: "#fff" }}>
-                    <>{row.wallet}</>
+                  <TableCell align="center" sx={{ color: "#AAADAF" }}>
+                    Wallet
                   </TableCell>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <TablePagination
-          rowsPerPageOptions={[5, 10, 25 , 50]}
-          component="div"
-          className="table-pag"
-          count={users.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-          sx={{
-            color: "#fff",
-            // overflowX: "hidden",
-            "& .MuiSelect-icon": { color: "#fff" },
-            "& .MuiTablePagination-actions button": { color: "#fff" },
-            "@media (max-width: 550px)": {
-              display:"flex",
-             flexDirection:"column"
-            },
-          }}
-        />
-      </Paper>
-    </Box>
+              </TableHead>
+              <TableBody>
+                {visibleRows.map((row) => (
+                  <TableRow
+                    hover
+                    tabIndex={-1}
+                    key={row.id}
+                    // value={row.Basic_ad}
+                    onClick={() => handleUserNavigation(row)}
+                    sx={{ cursor: "pointer" }}
+                  >
+                    <TableCell align="left" sx={{ color: "#fff" }}>
+                      <>{row.id}</>
+                    </TableCell>
+                    <TableCell
+                      component="th"
+                      scope="row"
+                      sx={{
+                        color: "#fff",
+                        display: "flex",
+                        gap: "5px",
+                        alignItems: "center",
+                      }}
+                    >
+                      {/* <span className="toggle-span">User Name</span> */}
+                      <>
+                        <Avatar src={row.image}></Avatar>
+                        {row.name ? row.name : "null"}
+                      </>
+                    </TableCell>
+                    <TableCell align="center" sx={{ color: "#fff" }}>
+                      <>{row.email ? row.email : "null"}</>
+                    </TableCell>
+                    <TableCell align="center" sx={{ color: "#fff" }}>
+                      <>{row.phone ? row.phone : "null"}</>
+                    </TableCell>
+                    <TableCell align="center" sx={{ color: "#fff" }}>
+                      <>{row.wallet}</>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <TablePagination
+            rowsPerPageOptions={[5, 10, 25, 50]}
+            component="div"
+            className="table-pag"
+            count={users.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+            sx={{
+              color: "#fff",
+              // overflowX: "hidden",
+              "& .MuiSelect-icon": { color: "#fff" },
+              "& .MuiTablePagination-actions button": { color: "#fff" },
+              "@media (max-width: 550px)": {
+                display: "flex",
+                flexDirection: "column",
+              },
+            }}
+          />
+        </Paper>
+      </Box>
+    </>
   );
 }
