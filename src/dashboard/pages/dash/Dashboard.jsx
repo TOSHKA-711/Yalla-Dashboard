@@ -14,54 +14,60 @@ import axios from "axios";
 export default function Dashboard() {
   const [data, setData] = useState({});
   const [data2, setData2] = useState({});
-  useEffect(() => {
-    const fetch = async () => {
-      try {
-        const response = await axios.get(
-          `https://app.yallapadel.club/public/dashboard/getRegistration`
-        );
-        setData(response.data);
-      } catch (error) {
-        console.error("Error fetching user:", error);
-        setError("Failed to load user data.");
-      }
-    };
+  // useEffect(() => {
+  //   const fetch = async () => {
+  //     try {
+  //       const response = await axios.get(
+  //         `https://app.yallapadel.club/public/dashboard/getRegistration`
+  //       );
+  //       setData(response.data);
+  //     } catch (error) {
+  //       console.error("Error fetching user:", error);
+  //       setError("Failed to load user data.");
+  //     }
+  //   };
 
-    fetch();
-  }, []);
+  //   fetch();
+  // }, []);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          `https://app.yallapadel.club/public/dashboard/getCardCounter`
-        );
-        setData2(response.data);
-      } catch (error) {
-        console.error("Error fetching user:", error);
-        setError("Failed to load user data.");
-      }
-    };
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await axios.get(
+  //         `https://app.yallapadel.club/public/dashboard/getCardCounter`
+  //       );
+  //       setData2(response.data);
+  //     } catch (error) {
+  //       console.error("Error fetching user:", error);
+  //       setError("Failed to load user data.");
+  //     }
+  //   };
 
-    fetchData();
-  }, []);
+  //   fetchData();
+  // }, []);
 
   return (
     <div className="dashboard flex-col">
       <Numbers
-        oneN={data2.total_users}
+        // oneN={data2.total_users}
+        oneN={"67"}
         oneC={"Total Customers"}
-        twoN={data2.users}
+        // twoN={data2.users}
+        twoN={"72"}
         twoC={"Users"}
-        threeN={data2.vendors}
+        // threeN={data2.vendors}
+        threeN={"20"}
         threeC={"Vendors"}
       />
       <Numbers
-        oneN={data2.total_items}
+        // oneN={data2.total_items}
+        oneN={"16"}
         oneC={"Total Items"}
-        twoN={data2.playgrounds}
+        // twoN={data2.playgrounds}
+        twoN={"9"}
         twoC={"Playgrounds"}
-        threeN={data2.bookings}
+        // threeN={data2.bookings}
+        threeN={"21"}
         threeC={"Bookings"}
       />
 
@@ -71,7 +77,7 @@ export default function Dashboard() {
           <img src={progressFrame} />
           <div className="bars flex-row">
             <span className=" flex-col">
-              <ProgressBar value={45} width="30%" height="80%" color={"red"} />
+              <ProgressBar value={55} width="30%" height="80%" color={"red"} />
               <p>social media</p>
             </span>
             <span className=" flex-col">

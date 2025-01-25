@@ -130,55 +130,324 @@ function PaymentModal({
   );
 }
 
+// export default function PaymentTable() {
+//   const navigate = useNavigate();
+
+//   const [sortValue, setSortValue] = useState("most paid");
+//   const [sortOpen, setSortOpen] = useState(false);
+//   const [searchTerm, setSearchTerm] = useState("");
+//   const [users, setUsers] = useState([]);
+//   const [dialogData, setDialogData] = useState({});
+//   const [page, setPage] = useState(0);
+//   const [rowsPerPage, setRowsPerPage] = useState(5);
+//   const [error, setError] = useState(false);
+//   const isSmallScreen = useMediaQuery("(max-width:930px)");
+
+//   const {
+//     selectedUsers,
+//     setSelectedUsers,
+//     setSelectedPlayer,
+//     // DialogPaymentData,
+//     // setDialogPaymentData,
+//   } = useContext(MyContext);
+
+//   // fetching users
+
+//   useEffect(() => {
+//     const fetchUsers = () => {
+//       axios
+//         .get(
+//           // '/api/public/dashboard/getAgent'
+//           "https://app.yallapadel.club/public/dashboard/getPaymentsInfo"
+//         )
+//         .then((response) => {
+//           if (Array.isArray(response.data.data)) {
+//             setUsers(response.data.data);
+//             setError(false);
+//             // console.log(response.data.data);
+//           } else {
+//             console.error("Expected an array but got:", response.data);
+//             setError(true);
+//             setUsers([]); // Fallback to an empty array
+//           }
+//         })
+//         .catch((error) => {
+//           console.error("Error fetching users:", error);
+//           setUsers([]); // Handle error state
+//         });
+//     };
+
+//     fetchUsers();
+//   }, []);
+
+//   const handleChangePage = (event, newPage) => {
+//     setPage(newPage);
+//   };
+
+//   const handleChangeRowsPerPage = (event) => {
+//     setRowsPerPage(parseInt(event.target.value, 10));
+//     setPage(0);
+//   };
+
+//   const filteredUsers = useMemo(() => {
+//     return users.filter((user) =>
+//       (user?.user.name || "" ).toLowerCase().includes(searchTerm.toLowerCase())||
+//       (user?.user.email || "" ).toLowerCase().includes(searchTerm.toLowerCase())||
+//       (user?.type || "" ).toLowerCase().includes(searchTerm.toLowerCase())||
+//       String(user?.phone || "" ).toLowerCase().includes(searchTerm.toLowerCase())||
+//       String(user?.id || "" ).toLowerCase().includes(searchTerm.toLowerCase())
+  
+//     );
+//   }, [searchTerm, users]);
+
+//   const visibleRows = useMemo(
+//     () =>
+//       filteredUsers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage),
+//     [page, rowsPerPage, filteredUsers]
+//   );
+
+//   //  user navigate func
+//   const handlePlayerSelect = (e) => {
+//     setSelectedPlayer(e);
+//     navigate("/userBooking");
+//   };
+//   //  vendor navigate func
+//   const handleVendorSelect = (e) => {
+//     setSelectedPlayer(null);
+//     setSelectedUsers(e);
+//     navigate("/vendorItems");
+//   };
+
+//   // handle dialog data
+//   const handleRowClick = (data) => {
+//     setDialogData(data);
+//     setSortOpen(true);
+//     // console.log(data);
+//   };
+//   const handleSortClose = () => {
+//     setSortOpen(false);
+//   };
+//   const handleSortChange = (event) => {
+//     setSortValue(event.target.value);
+//   };
+
+//   return (
+//     <>
+//       <PaymentModal
+//         sortOpen={sortOpen}
+//         handleSortClose={handleSortClose}
+//         sortValue={sortValue}
+//         handleSortChange={handleSortChange}
+//         handleUserNavigation={handlePlayerSelect}
+//         handleVendorNavigation={handleVendorSelect}
+//         user={dialogData}
+//       />
+
+//       <Box sx={{ width: "100%" }}>
+//         <Paper
+//           sx={{
+//             width: "100%",
+//             mb: 2,
+//             backgroundColor: "#272D35",
+//             color: "#fff",
+//             padding: "20px",
+//             borderRadius: "20px",
+//           }}
+//         >
+//           <Toolbar
+//             sx={{
+//               pl: { sm: 2 },
+//               pr: { xs: 1, sm: 1 },
+//             }}
+//           >
+//             <Typography
+//               sx={{ flex: "1 1 100%" }}
+//               variant="h6"
+//               id="tableTitle"
+//               component="div"
+//             >
+//               <div className="table-header flex-row">
+//                 <div className="search flex-row">
+//                   <CiSearch className="icon" />
+//                   <input
+//                     placeholder="search"
+//                     value={searchTerm}
+//                     onChange={(e) => setSearchTerm(e.target.value)}
+//                   />
+//                 </div>
+//                 <div className="btns flex-row">
+//                   <button
+//                     className="filter flex-row"
+//                     // onClick={() => handleClickFilterOpen()}
+//                   >
+//                     <CiFilter className="icon" />
+//                     <span>Filter</span>
+//                   </button>
+//                   <button
+//                     className="sort flex-row"
+//                     // onClick={() => handleClickSortOpen()}
+//                   >
+//                     <BiSort className="icon" />
+//                     <span>Sort</span>
+//                   </button>
+//                 </div>
+//               </div>
+//             </Typography>
+//           </Toolbar>
+//           <TableContainer>
+//             <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle">
+//               <TableHead className={`table-head ${isSmallScreen && "hidden"}`}>
+//                 <TableRow>
+//                   <TableCell sx={{ color: "#AAADAF" }}>ID</TableCell>
+//                   <TableCell sx={{ color: "#AAADAF" }}>User Name</TableCell>
+//                   <TableCell align="center" sx={{ color: "#AAADAF" }}>
+//                     Phone
+//                   </TableCell>
+//                   <TableCell align="center" sx={{ color: "#AAADAF" }}>
+//                     Total
+//                   </TableCell>
+
+//                   <TableCell align="center" sx={{ color: "#AAADAF" }}>
+//                     Type
+//                   </TableCell>
+//                   <TableCell align="center" sx={{ color: "#AAADAF" }}>
+//                     Status
+//                   </TableCell>
+//                 </TableRow>
+//               </TableHead>
+//               <TableBody>
+//                 {visibleRows.map((row) => (
+//                   <TableRow
+//                     hover
+//                     tabIndex={-1}
+//                     key={row.id}
+//                     onClick={() => handleRowClick(row)}
+//                     sx={{ cursor: "pointer" }}
+//                   >
+//                     <TableCell align="left" sx={{ color: "#fff" }}>
+//                       <>{row.id}</>
+//                     </TableCell>
+//                     <TableCell
+//                       component="th"
+//                       scope="row"
+//                       sx={{
+//                         color: "#fff",
+//                         display: "flex",
+//                         gap: "5px",
+//                         alignItems: "center",
+//                       }}
+//                     >
+//                       {/* <span className="toggle-span">User Name</span> */}
+//                       <>
+//                         <Avatar src={row.user.image}></Avatar>
+//                         {row.user.name ? row.user.name : "null"}
+//                       </>
+//                     </TableCell>
+//                     <TableCell align="center" sx={{ color: "#fff" }}>
+//                       <>{row.phone ? row.phone : "null"}</>
+//                     </TableCell>
+//                     <TableCell align="center" sx={{ color: "#fff" }}>
+//                       <div className=" flex-row">
+//                         {row.total ? row.total : "null"}{" "}
+//                         {row.currency ? row.currency : "$"}
+//                       </div>
+//                     </TableCell>
+//                     <TableCell align="center" sx={{ color: "#fff" }}>
+//                       <>{row.type}</>
+//                     </TableCell>
+//                     <TableCell align="center" sx={{ color: "#fff" }}>
+//                       <>
+//                       {row.status==0?
+//                         <span style={{padding:"10px 20px" , backgroundColor:"rgb(204, 204, 58)" , borderRadius:"5px"}}>Pending</span> :
+//                         <span style={{padding:"10px 20px" , backgroundColor:" rgb(44, 170, 44)" , borderRadius:"5px"}}>Approved</span> 
+//                        }
+//                       </>
+//                     </TableCell>
+//                   </TableRow>
+//                 ))}
+//               </TableBody>
+//             </Table>
+//           </TableContainer>
+//           <TablePagination
+//             rowsPerPageOptions={[5, 10, 25, 50]}
+//             component="div"
+//             className="table-pag"
+//             count={users.length}
+//             rowsPerPage={rowsPerPage}
+//             page={page}
+//             onPageChange={handleChangePage}
+//             onRowsPerPageChange={handleChangeRowsPerPage}
+//             sx={{
+//               color: "#fff",
+//               // overflowX: "hidden",
+//               "& .MuiSelect-icon": { color: "#fff" },
+//               "& .MuiTablePagination-actions button": { color: "#fff" },
+//               "@media (max-width: 550px)": {
+//                 display: "flex",
+//                 flexDirection: "column",
+//               },
+//             }}
+//           />
+//         </Paper>
+//       </Box>
+//     </>
+//   );
+// }
 export default function PaymentTable() {
   const navigate = useNavigate();
 
   const [sortValue, setSortValue] = useState("most paid");
   const [sortOpen, setSortOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  const [users, setUsers] = useState([]);
-  const [dialogData, setDialogData] = useState({});
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  const [error, setError] = useState(false);
   const isSmallScreen = useMediaQuery("(max-width:930px)");
 
-  const {
-    selectedUsers,
-    setSelectedUsers,
-    setSelectedPlayer,
-    // DialogPaymentData,
-    // setDialogPaymentData,
-  } = useContext(MyContext);
+  const staticUsers = [
+    {
+      id: 1,
+      user: { name: "John Doe", image: "" },
+      phone: "1234567890",
+      total: 150,
+      currency: "$",
+      type: "Player",
+      status: 0, // 0 = Pending, 1 = Approved
+    },
+    {
+      id: 2,
+      user: { name: "Jane Smith", image: "" },
+      phone: "9876543210",
+      total: 200,
+      currency: "$",
+      type: "Vendor",
+      status: 1, // 0 = Pending, 1 = Approved
+    },
+    {
+      id: 3,
+      user: { name: "Alice Johnson", image: "" },
+      phone: "4561237890",
+      total: 300,
+      currency: "$",
+      type: "Player",
+      status: 0, // 0 = Pending, 1 = Approved
+    },
+    // Add more static user objects as needed
+  ];
 
-  // fetching users
+  const filteredUsers = useMemo(() => {
+    return staticUsers.filter((user) =>
+      (user?.user.name || "").toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (user?.type || "").toLowerCase().includes(searchTerm.toLowerCase()) ||
+      String(user?.phone || "").toLowerCase().includes(searchTerm.toLowerCase()) ||
+      String(user?.id || "").toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  }, [searchTerm]);
 
-  useEffect(() => {
-    const fetchUsers = () => {
-      axios
-        .get(
-          // '/api/public/dashboard/getAgent'
-          "https://app.yallapadel.club/public/dashboard/getPaymentsInfo"
-        )
-        .then((response) => {
-          if (Array.isArray(response.data.data)) {
-            setUsers(response.data.data);
-            setError(false);
-            // console.log(response.data.data);
-          } else {
-            console.error("Expected an array but got:", response.data);
-            setError(true);
-            setUsers([]); // Fallback to an empty array
-          }
-        })
-        .catch((error) => {
-          console.error("Error fetching users:", error);
-          setUsers([]); // Handle error state
-        });
-    };
-
-    fetchUsers();
-  }, []);
+  const visibleRows = useMemo(
+    () =>
+      filteredUsers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage),
+    [page, rowsPerPage, filteredUsers]
+  );
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -189,60 +458,14 @@ export default function PaymentTable() {
     setPage(0);
   };
 
-  const filteredUsers = useMemo(() => {
-    return users.filter((user) =>
-      (user?.user.name || "" ).toLowerCase().includes(searchTerm.toLowerCase())||
-      (user?.user.email || "" ).toLowerCase().includes(searchTerm.toLowerCase())||
-      (user?.type || "" ).toLowerCase().includes(searchTerm.toLowerCase())||
-      String(user?.phone || "" ).toLowerCase().includes(searchTerm.toLowerCase())||
-      String(user?.id || "" ).toLowerCase().includes(searchTerm.toLowerCase())
-  
-    );
-  }, [searchTerm, users]);
-
-  const visibleRows = useMemo(
-    () =>
-      filteredUsers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage),
-    [page, rowsPerPage, filteredUsers]
-  );
-
-  //  user navigate func
-  const handlePlayerSelect = (e) => {
-    setSelectedPlayer(e);
-    navigate("/userBooking");
-  };
-  //  vendor navigate func
-  const handleVendorSelect = (e) => {
-    setSelectedPlayer(null);
-    setSelectedUsers(e);
-    navigate("/vendorItems");
-  };
-
-  // handle dialog data
   const handleRowClick = (data) => {
     setDialogData(data);
     setSortOpen(true);
-    // console.log(data);
   };
-  const handleSortClose = () => {
-    setSortOpen(false);
-  };
-  const handleSortChange = (event) => {
-    setSortValue(event.target.value);
-  };
+
 
   return (
     <>
-      <PaymentModal
-        sortOpen={sortOpen}
-        handleSortClose={handleSortClose}
-        sortValue={sortValue}
-        handleSortChange={handleSortChange}
-        handleUserNavigation={handlePlayerSelect}
-        handleVendorNavigation={handleVendorSelect}
-        user={dialogData}
-      />
-
       <Box sx={{ width: "100%" }}>
         <Paper
           sx={{
@@ -268,28 +491,11 @@ export default function PaymentTable() {
             >
               <div className="table-header flex-row">
                 <div className="search flex-row">
-                  <CiSearch className="icon" />
                   <input
                     placeholder="search"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                   />
-                </div>
-                <div className="btns flex-row">
-                  <button
-                    className="filter flex-row"
-                    // onClick={() => handleClickFilterOpen()}
-                  >
-                    <CiFilter className="icon" />
-                    <span>Filter</span>
-                  </button>
-                  <button
-                    className="sort flex-row"
-                    // onClick={() => handleClickSortOpen()}
-                  >
-                    <BiSort className="icon" />
-                    <span>Sort</span>
-                  </button>
                 </div>
               </div>
             </Typography>
@@ -306,7 +512,6 @@ export default function PaymentTable() {
                   <TableCell align="center" sx={{ color: "#AAADAF" }}>
                     Total
                   </TableCell>
-
                   <TableCell align="center" sx={{ color: "#AAADAF" }}>
                     Type
                   </TableCell>
@@ -325,7 +530,7 @@ export default function PaymentTable() {
                     sx={{ cursor: "pointer" }}
                   >
                     <TableCell align="left" sx={{ color: "#fff" }}>
-                      <>{row.id}</>
+                      {row.id}
                     </TableCell>
                     <TableCell
                       component="th"
@@ -337,31 +542,42 @@ export default function PaymentTable() {
                         alignItems: "center",
                       }}
                     >
-                      {/* <span className="toggle-span">User Name</span> */}
-                      <>
-                        <Avatar src={row.user.image}></Avatar>
-                        {row.user.name ? row.user.name : "null"}
-                      </>
+                      <Avatar src={row.user.image}></Avatar>
+                      {row.user.name ? row.user.name : "null"}
                     </TableCell>
                     <TableCell align="center" sx={{ color: "#fff" }}>
-                      <>{row.phone ? row.phone : "null"}</>
+                      {row.phone ? row.phone : "null"}
                     </TableCell>
                     <TableCell align="center" sx={{ color: "#fff" }}>
-                      <div className=" flex-row">
-                        {row.total ? row.total : "null"}{" "}
-                        {row.currency ? row.currency : "$"}
+                      <div className="flex-row">
+                        {row.total ? row.total : "null"} {row.currency}
                       </div>
                     </TableCell>
                     <TableCell align="center" sx={{ color: "#fff" }}>
-                      <>{row.type}</>
+                      {row.type}
                     </TableCell>
                     <TableCell align="center" sx={{ color: "#fff" }}>
-                      <>
-                      {row.status==0?
-                        <span style={{padding:"10px 20px" , backgroundColor:"rgb(204, 204, 58)" , borderRadius:"5px"}}>Pending</span> :
-                        <span style={{padding:"10px 20px" , backgroundColor:" rgb(44, 170, 44)" , borderRadius:"5px"}}>Approved</span> 
-                       }
-                      </>
+                      {row.status === 0 ? (
+                        <span
+                          style={{
+                            padding: "10px 20px",
+                            backgroundColor: "rgb(204, 204, 58)",
+                            borderRadius: "5px",
+                          }}
+                        >
+                          Pending
+                        </span>
+                      ) : (
+                        <span
+                          style={{
+                            padding: "10px 20px",
+                            backgroundColor: "rgb(44, 170, 44)",
+                            borderRadius: "5px",
+                          }}
+                        >
+                          Approved
+                        </span>
+                      )}
                     </TableCell>
                   </TableRow>
                 ))}
@@ -371,21 +587,15 @@ export default function PaymentTable() {
           <TablePagination
             rowsPerPageOptions={[5, 10, 25, 50]}
             component="div"
-            className="table-pag"
-            count={users.length}
+            count={staticUsers.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onPageChange={handleChangePage}
             onRowsPerPageChange={handleChangeRowsPerPage}
             sx={{
               color: "#fff",
-              // overflowX: "hidden",
               "& .MuiSelect-icon": { color: "#fff" },
               "& .MuiTablePagination-actions button": { color: "#fff" },
-              "@media (max-width: 550px)": {
-                display: "flex",
-                flexDirection: "column",
-              },
             }}
           />
         </Paper>

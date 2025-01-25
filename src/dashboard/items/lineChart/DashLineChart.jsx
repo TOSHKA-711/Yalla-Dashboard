@@ -10,41 +10,52 @@ import {
 } from "recharts";
 
 export default class DashLineChart extends PureComponent {
+  // state = {
+  //   data: [],
+  //   error: null,
+  // };
+
+  // componentDidMount() {
+  //   this.fetchData();
+  // }
+
+  // fetchData = async () => {
+  //   try {
+  //     const response = await axios.get(
+  //       // `/api/public/dashboard/getRevenue`
+  //       `https://app.yallapadel.club/public/dashboard/getRevenue`
+  //       );
+  //     const { total_revenue, total_pending, total_complete, total_cancel } = response.data;
+
+  //     // Transform data for the chart
+  //     const data = [
+  //       { name: "Revenue", value: total_revenue },
+  //       { name: "Pending", value: total_pending },
+  //       { name: "Complete", value: total_complete },
+  //       { name: "Cancelled", value: total_cancel },
+  //     ];
+
+  //     this.setState({ data });
+  //   } catch (error) {
+  //     console.error("Error fetching data:", error);
+  //     this.setState({ error: "Failed to load data." });
+  //   }
+  // };
+
+  // render() {
+  //   const { data, error } = this.state;
   state = {
-    data: [],
+    data: [
+      { name: "Revenue", value: 10000 }, // إيرادات
+      { name: "Pending", value: 2000 },  // المعلق
+      { name: "Complete", value: 7000 }, // المكتمل
+      { name: "Cancelled", value: 1000 }, // الملغي
+    ],
     error: null,
-  };
-
-  componentDidMount() {
-    this.fetchData();
-  }
-
-  fetchData = async () => {
-    try {
-      const response = await axios.get(
-        // `/api/public/dashboard/getRevenue`
-        `https://app.yallapadel.club/public/dashboard/getRevenue`
-        );
-      const { total_revenue, total_pending, total_complete, total_cancel } = response.data;
-
-      // Transform data for the chart
-      const data = [
-        { name: "Revenue", value: total_revenue },
-        { name: "Pending", value: total_pending },
-        { name: "Complete", value: total_complete },
-        { name: "Cancelled", value: total_cancel },
-      ];
-
-      this.setState({ data });
-    } catch (error) {
-      console.error("Error fetching data:", error);
-      this.setState({ error: "Failed to load data." });
-    }
   };
 
   render() {
     const { data, error } = this.state;
-
     return (
       <div style={{ width: "100%", height: "300px" }}>
         {error && <p style={{ color: "red" }}>{error}</p>}

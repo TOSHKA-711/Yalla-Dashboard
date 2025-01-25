@@ -19,8 +19,9 @@ const ProgressBar = ({ value, width, height, color ,per}) => {
       </svg>
 
       <CircularProgressbar
-        value={value}
-        text={`${per?"+":""}${value}${per?"%":""}`}
+        value={55}
+        // text={`${per?"+":""}${value}${per?"%":""}`}
+        text={`+${55}%`}
         styles={buildStyles({
           pathColor: `${color ? color : "url(#gradient)"}  `, // Apply gradient from SVG
           textColor: "#fff",

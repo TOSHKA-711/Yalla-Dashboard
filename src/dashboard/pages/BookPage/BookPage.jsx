@@ -35,8 +35,8 @@ navigate("/userBooking");
         <div className="players flex-row">
           <div className="child flex-col">
             <span className=" flex-row"   onClick={()=>handlePlayerSelect(selectedBook.me.id)}>
-              <p> {selectedBook.me.name}</p>
-              <img src={selectedBook.me.image} />
+              <p> {selectedBook.name ? selectedBook.name : "Ali"}</p>
+              <img src={selectedBook.gust_one?selectedBook.gust_one : img2 } />
             </span>
             <span className=" flex-row" onClick={()=>handlePlayerSelect(selectedBook.gust_one.id)}>
               <p> {selectedBook.gust_one?selectedBook.gust_one.name : "none" }</p>

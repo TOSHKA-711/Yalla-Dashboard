@@ -104,15 +104,15 @@ export default function UserBooking() {
           <div className="user-details flex-col">
             <span className=" flex-row">
               <CiUser className="icon" />
-              <p>-ID {selectedPlayer ? selectedPlayer :  selectedUsers.id} </p>
+              <p>-ID {selectedPlayer ? selectedPlayer :  selectedUsers.id } </p>
             </span>
             <span className=" flex-row">
               <MdOutlineMailOutline className="icon" />
-              <p>{user.email ? user.email : "null"}</p>
+              <p>{user.email ? user.email : "aliovich711@gmail.com"}</p>
             </span>
             <span className=" flex-row">
               <CiPhone className="icon" />
-              <p>{user.phone ? user.name : "null"}</p>
+              <p>{user.phone ? user.phone : "+201021068752"}</p>
             </span>
             <span className=" flex-row">
               <CiLock className="icon" />

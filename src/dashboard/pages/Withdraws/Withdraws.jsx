@@ -120,32 +120,75 @@ export default function WithDraw() {
 
   // fetching users
 
-  useEffect(() => {
-    const fetchUsers = () => {
-      axios
-        .get(
-          // '/api/public/dashboard/getAgent'
-          "https://app.yallapadel.club/public/dashboard/getWithDraws"
-        )
-        .then((response) => {
-          if (Array.isArray(response.data.data)) {
-            setUsers(response.data.data);
-            setError(false);
-            // console.log(response.data.data);
-          } else {
-            console.error("Expected an array but got:", response.data);
-            setError(true);
-            setUsers([]); // Fallback to an empty array
-          }
-        })
-        .catch((error) => {
-          console.error("Error fetching users:", error);
-          setUsers([]); // Handle error state
-        });
-    };
+  // useEffect(() => {
+  //   const fetchUsers = () => {
+  //     axios
+  //       .get(
+  //         // '/api/public/dashboard/getAgent'
+  //         "https://app.yallapadel.club/public/dashboard/getWithDraws"
+  //       )
+  //       .then((response) => {
+  //         if (Array.isArray(response.data.data)) {
+  //           setUsers(response.data.data);
+  //           setError(false);
+  //           // console.log(response.data.data);
+  //         } else {
+  //           console.error("Expected an array but got:", response.data);
+  //           setError(true);
+  //           setUsers([]); // Fallback to an empty array
+  //         }
+  //       })
+  //       .catch((error) => {
+  //         console.error("Error fetching users:", error);
+  //         setUsers([]); // Handle error state
+  //       });
+  //   };
 
-    fetchUsers();
-  }, []);
+  //   fetchUsers();
+  // }, []);
+
+    // Static Data
+    const staticUsers = [
+      {
+        id: "1",
+        user: {
+          id: "U101",
+          name: "John Doe",
+          phone: "1234567890",
+          type: "Player",
+        },
+        withdrawal_amount: 500,
+        currency: "$",
+      },
+      {
+        id: "2",
+        user: {
+          id: "U102",
+          name: "Jane Smith",
+          phone: "9876543210",
+          type: "Vendor",
+        },
+        withdrawal_amount: 700,
+        currency: "$",
+      },
+      {
+        id: "3",
+        user: {
+          id: "U103",
+          name: "Alice Brown",
+          phone: "5678901234",
+          type: "Player",
+        },
+        withdrawal_amount: 400,
+        currency: "$",
+      },
+      // Add more static users as needed
+    ];
+  
+    // Use static data
+    useEffect(() => {
+      setUsers(staticUsers);
+    }, []);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
