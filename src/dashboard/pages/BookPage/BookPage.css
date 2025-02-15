@@ -1,0 +1,137 @@
+
+.book-page{
+    width: 100%;
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+    gap: 20px;
+}
+.book-page .header{
+    width: 100%;
+    height: 50vh;
+    position: relative;
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+    user-select: none;
+}
+.book-page .header .layer{
+ position: absolute;
+ left: 0;
+ top: 0;
+ width: 100%;
+ height: 100%;
+ background: linear-gradient(to top, #053667, rgba(60, 151, 243, 0));
+
+}
+.book-page .header img{
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+}
+
+.book-page .header .players{
+    gap: 10px;
+    position: absolute;
+    bottom:10px;
+    left: 50%;
+    transform: translateX(-50%);
+    
+}
+.book-page .header .players .child{
+gap: 20px;
+align-items: flex-end;
+}
+.book-page .header .players .child span{
+gap: 10px;
+cursor: pointer;
+}
+.book-page .header .players .child span p{
+font-size: 20px;
+}
+.book-page .header .players .child span img{
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+}
+
+.book-page .content{
+    width: 100%;
+    padding: 20px;
+    gap: 30px;
+    /* background-color: #272d35; */
+}
+.book-page .content .details{
+
+    gap: 2rem ;
+ display: grid;
+ grid-template-columns: 1fr 1fr;
+  
+}
+.book-page .content .details span{
+
+    gap: 10px;
+    font-size: 22px;
+  
+}
+
+
+
+@media screen and (max-width:780px) {
+    .DetailsCard {
+        width: 37vw;}
+        .book-page .content .details {
+            grid-template-columns: 1fr;
+            width: 100%;
+        }
+        .book-page .header {
+          
+            height: 35vh;
+        }
+  }
+@media screen and (max-width:500px) {
+    .book-page .header .players .child span img {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        object-fit: cover;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        -ms-border-radius: 50%;
+        -o-border-radius: 50%;
+    }
+    .book-page .header .players .child span p {
+        font-size: 15px;
+    }
+    .book-page .header .players .child {
+        gap: 5px;
+        align-items: flex-end;
+    }
+    .book-page .header .players {
+        gap: 0px;
+        position: absolute;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    .book-page .header .players .child span {
+        gap: 5px;
+        cursor: pointer;
+    }
+    .book-page .content {
+        padding: 0px;
+    }
+  }

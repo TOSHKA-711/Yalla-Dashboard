@@ -1,0 +1,143 @@
+.notifications {
+  align-items: flex-start !important;
+  gap: 20px;
+  width: 100%;
+}
+
+.notifications .container {
+  width: 100%;
+  align-items: flex-start !important;
+  gap: 20px;
+}
+.notifications .container .text {
+  align-items: flex-start;
+  gap: 20px;
+}
+.notifications .container .text .content {
+  width: 100%;
+  background-color: #272d35;
+  border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
+  padding: 20px;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.notifications .container .text .content .child {
+  gap: 15px;
+  width: 100%;
+  cursor: pointer;
+  padding: 10px;
+}
+.notifications .container .text .content .child:hover {
+  background-color: #42474e;
+}
+.notifications .container .text .content .child span {
+  align-items: flex-start;
+  gap: 5px;
+  width: 100%;
+}
+.notifications .container .text .content .child span p {
+  font-weight: 500;
+  font-size: 16px;
+}
+.notifications .container .text .content .child span h6 {
+  font-weight: 500;
+  font-size: 13px;
+  color: #888c90;
+}
+
+.notifications .container .form {
+  align-items: flex-start;
+  width: 100%;
+  padding: 20px;
+  background-color: #272d35;
+  border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
+  gap: 40px;
+}
+.notifications .container .form .child {
+  width: 100%;
+  position: relative;
+}
+.notifications .container .form .child input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: #272d35;
+  border: 1px solid #747474;
+  outline: none;
+  color: #fff;
+  resize: none !important;
+  overflow: hidden;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+.notifications .container .form .child textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: #272d35;
+  border: 1px solid #747474;
+  outline: none;
+  color: #fff;
+  resize: none !important;
+  overflow: hidden;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+.notifications .container .form .child p {
+  position: absolute;
+  top: -30px;
+  left: 0;
+}
+.notifications .container .form .child.button {
+  padding: 12px 50px;
+  background-color: #3C97F3 !important;
+  border: none;
+  width: unset;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+  cursor: pointer;
+  margin-top: -20px;
+}
+
+@media screen and (max-width: 784px) {
+  .notifications .container .text {
+    width: 100%;
+  }
+  .notifications .container {
+    flex-direction: column-reverse;
+    width: 99%;
+  }
+}
+@media screen and (max-width: 500px) {
+  .notifications .container .text .content .child span p {
+    font-size: 12px;
+  }
+  .notifications .container .text .content .child span h6 {
+    font-size: 11px;
+  }
+  .notifications .container .text .content {
+    padding: 10px;
+
+}
+.notifications h2{
+  font-size: 20px;
+}
+.notifications .container .form .child p {
+  font-size: 14px;
+}
+.notifications .container .form .child.button {
+  padding: 9px 40px;
+}
+}

@@ -1,0 +1,22 @@
+
+  .css-nhgxju-MuiPaper-root-MuiCard-root {
+
+  
+    justify-content: space-between;
+    padding-right: 20px !important;
+}
+@media screen and (max-width:1080px) {
+    .css-nhgxju-MuiPaper-root-MuiCard-root {
+
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+}
+@media screen and (max-width:500px) {
+    .css-nhgxju-MuiPaper-root-MuiCard-root {
+        flex-direction: column-reverse;
+        align-items: center;
+    }
+    
+}

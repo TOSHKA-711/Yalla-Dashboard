@@ -1,0 +1,144 @@
+ .table-header{
+    width: 100%;
+    justify-content: space-between !important;
+    align-items: stretch !important;
+ }
+ 
+ .table-header .search {
+    background-color: #000000;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 10px;
+    gap: 10px;
+    width: 60%;
+  }
+   .table-header .search input {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: #fff;
+    width: 100%;
+  }
+   .table-header .search .icon {
+    font-size: 22px;
+  }
+
+  .table-header .btns{
+    gap: 20px;
+  }
+  .table-header .btns button{
+    padding: 12px 20px;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    font-size: 16px;
+    gap: 5px;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+  .table-header .btns button .icon{
+    font-size: 22px;
+}
+  .table-header .btns button.filter{
+    background-color: #3C97F3 !important;
+}
+  .table-header .btns button.sort{
+    background-color: #111314;
+}
+
+.table-head.hidden{
+  /* display: none; */
+}
+
+.toggle-span{
+  display: none;
+}
+
+@media screen and (max-width:935px) {
+  .toggle-span{
+    display: hidden !important;
+  }
+  td.MuiTableCell-root.MuiTableCell-body.MuiTableCell-alignRight.MuiTableCell-sizeMedium.css-1i2pk0x-MuiTableCell-root {
+    text-align: justify;
+    gap: 20px;
+    display: flex;
+    justify-content: flex-start;
+    gap: 43px;
+    flex-direction: row;
+}
+.css-8atqhb {
+  width: 80vw !important;
+} 
+.table-header {
+
+  flex-direction: column-reverse;
+  align-items: center !important;
+  justify-content: center;
+  gap: 15px;
+}
+.table-header .search {
+  width: 100% !important;
+}
+}
+
+@media screen and (max-width:560px) {
+  .css-8atqhb {
+    width: 70vw !important;
+  } 
+  .table-header .btns button {
+    padding: 10px 14px;
+    font-size: 12px;
+ 
+}
+}
+
+
+@media screen and (max-width:935px) {
+  .css-70zvr5-MuiTableContainer-root {
+    width: 100%;
+    overflow-x: auto !important;
+}
+.toggle-span{
+  display: flex;
+}
+td.MuiTableCell-root.MuiTableCell-body.MuiTableCell-alignRight.MuiTableCell-sizeMedium.css-1i2pk0x-MuiTableCell-root {
+  text-align: justify;
+  gap: 20px;
+  display: flex;
+  justify-content: flex-start;
+  gap: 43px;
+  flex-direction: row;
+}
+.css-8atqhb {
+width: 80vw !important;
+} 
+.table-header {
+
+flex-direction: column-reverse;
+align-items: center !important;
+justify-content: center;
+gap: 15px;
+}
+.table-header .search {
+width: 100% !important;
+}
+}
+
+@media screen and (max-width:560px) {
+.css-8atqhb {
+  width: 70vw !important;
+} 
+.table-header .btns button {
+  padding: 10px 14px;
+  font-size: 12px;
+
+}
+}

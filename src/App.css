@@ -1,0 +1,39 @@
+.MuiDialogTitle-root+.css-kw13he-MuiDialogContent-root {
+    padding-top: 0;
+    /* overflow-x: hidden; */
+  }
+  .css-70zvr5-MuiTableContainer-root {
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 20px;
+}
+
+
+.MuiSvgIcon-root {
+  color: #3C97F3 ;
+}
+
+/* nav-select  */
+
+
+
+  @media screen and (max-width:1020px) {
+    :where(.css-dev-only-do-not-override-1hpnbz2).ant-layout-sider .ant-layout-sider-trigger {
+ 
+      display: none;
+  }
+  }
+  @media screen and (max-width:980px) {
+  .card{
+    width: 100% !important;
+  }
+  }
+  @media screen and (max-width:440px) {
+    .dialog-paper {
+        gap: 0;
+        scale: .8;
+    }
+    .dialog-content {
+        padding: 20px 0 !important;
+    }
+  }

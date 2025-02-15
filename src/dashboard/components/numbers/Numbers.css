@@ -1,0 +1,92 @@
+.numbers {
+  height: 20vh;
+  gap: 20px;
+  align-items: stretch;
+  width: 100%;
+  
+}
+.numbers .child {
+  background: linear-gradient(90deg, #3c97f3, rgba(60, 151, 243, 0)) !important;
+
+  flex-grow: 1;
+  border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
+  text-align: center;
+  gap: 15px;
+  height: 100%;
+}
+.numbers .child .container {
+  width: 50%;
+  text-align: center;
+  gap: 15px;
+  height: 100%;
+}
+.numbers .child span {
+  align-items: flex-start;
+}
+
+@media screen and (max-width: 1495px) {
+  .numbers .child {
+    width: 12rem;
+  }
+  .numbers .child span {
+    align-items: flex-start;
+    font-size: 14px;
+  }
+}
+@media screen and (max-width: 1084px) {
+  .numbers {
+    height: 17vh !important;
+  }
+
+  .numbers .child span {
+    align-items: flex-start;
+    font-size: 14px;
+  }
+}
+@media screen and (max-width: 1000px) {
+  .numbers {
+    flex-wrap: wrap !important;
+    height: unset !important;
+  }
+  .numbers .child {
+    width: 14rem;
+  }
+}
+
+@media screen and (max-width: 840px) {
+  .numbers .child span {
+    align-items: flex-start;
+    font-size: 13px;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .numbers .child {
+    width: 16rem;
+  }
+  .css-rbklcn-MuiResponsiveChart-container {
+    height: 140px !important;
+  }
+}
+@media screen and (max-width: 480px) {
+  .numbers .child {
+    width: 12rem;
+  }
+  .numbers .child span {
+    align-items: flex-start;
+    font-size: 11px;
+  }
+}
+@media screen and (max-width: 400px) {
+  .numbers .child {
+    width: 10rem;
+  }
+  .numbers .child span {
+    align-items: flex-start;
+    font-size: 10px;
+  }
+}

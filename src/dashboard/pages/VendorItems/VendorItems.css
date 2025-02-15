@@ -1,0 +1,132 @@
+.vendor-items  {
+    /* width: 100% !important; */
+    gap: 20px;
+    align-items: flex-start !important;
+    width: 100%;
+  }
+  .vendor-items .user-data {
+    gap: 20px;
+    width: 100%;
+  }
+  
+  .user-card {
+    background-color: #272d35;
+    padding: 20px;
+    border-radius: 10px;
+    gap: 20px;
+  }
+  
+  .user-name {
+    align-items: center;
+    gap: 10px;
+  }
+  .user-name h2 {
+    font-weight: 500;
+    text-align: center;
+  }
+  .user-name .img {
+    width: 80px;
+    height: 80px;
+  }
+  .user-name span.divider {
+    height: 1.2px;
+    background: #52575d;
+    width: 100%;
+  }
+  
+  .user-details {
+    align-items: flex-start !important;
+  }
+  .user-details span {
+    padding: 10px;
+    width: 100%;
+    justify-content: flex-start !important;
+    gap: 10px;
+  }
+  /* .user-details span p{
+ margin-left: 5px;
+  } */
+  .user-details span .icon {
+    font-size: 25px;
+  }
+  .user-btns {
+    gap: 10px;
+  }
+  .user-btns button {
+    width: 100%;
+    padding: 10px 20px;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    cursor: pointer;
+    gap: 5px;
+    font-size: 15px;
+    border: none;
+  }
+  .user-btns button.del {
+    background-color: #ed1b24;
+    color: #fff;
+  }
+  .user-btns button.freeze {
+    background-color: #d8d9db;
+    color: #ed1b24;
+  }
+  .user-btns button.withdraw {
+    background-color: #590ecb;
+    color: #fff;
+  }
+  
+  .user-card .down{
+    gap: 20px;
+  }
+  
+  @media screen and (max-width:1500px) {
+    .vendor-items {
+      flex-direction: column !important;
+      align-items: center !important;
+      gap: 20px;
+    }
+
+    .user-card {
+      width: 100%;
+     
+  }
+  .user-card .down {
+    gap: 68px;
+    flex-direction: row;
+  }
+  .userBooking{
+    width: 100% ;
+  }
+  
+  }
+
+  @media screen and (max-width: 935px) {
+    .user-card {
+      width: 80vw;
+     
+  }
+  }
+  @media screen and (max-width:645px) {
+    .user-card {
+      width: 80vw;
+     
+  }
+  .user-card .down {
+    gap: 20px;
+    flex-direction: column;
+  }
+  }
+  @media screen and (max-width:556px) {
+    .user-card {
+    width: 70vw;
+  }
+  }
+  @media screen and (max-width:400px) {
+  .vendor-items {
+    width: 90%;
+  }
+  }
+  

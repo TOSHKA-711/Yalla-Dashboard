@@ -1,0 +1,89 @@
+/* From Uiverse.io by akshat-patel28 */ 
+.DetailsCard {
+    width: 35vw;
+    
+    height: 150px;
+    background: linear-gradient(90deg, #3c97f3, rgba(60, 151, 243, 0)) !important;
+    border-radius: 15px;
+    box-shadow: rgb(0,0,0,0.7) 5px 10px 50px ,rgb(0,0,0,0.7) -5px 0px 250px;
+    display: flex;
+    color: white;
+    justify-content: center;
+    position: relative;
+    flex-direction: column;
+    background: linear-gradient(to right, rgb(20, 30, 48), rgb(36, 59, 85));
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    overflow: hidden;
+  }
+  
+  .DetailsCard:hover {
+    box-shadow: rgb(0,0,0) 5px 10px 50px ,rgb(0,0,0) -5px 0px 250px;
+  }
+  
+  .time-text {
+    font-size: 50px;
+    margin-top: 0px;
+    margin-left: 15px;
+    font-weight: 600;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  }
+  
+  .time-sub-text {
+    font-size: 15px;
+    margin-left: 5px;
+  }
+  
+  .day-text {
+    font-size: 18px;
+    margin-top: 0px;
+    margin-left: 15px;
+    font-weight: 500;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  }
+  
+  .moon {
+    font-size: 20px;
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .DetailsCard:hover > .moon {
+    font-size: 23px;
+  }
+  
+
+  @media screen and (max-width:1495px) {
+    .DetailsCard {
+      width: 42vw;
+
+    }
+  }
+  @media screen and (max-width:1200px) {
+    .DetailsCard {
+      width: 40vw;
+
+    }
+  }
+  @media screen and (max-width:980px) {
+    .DetailsCard {
+      width: 37vw;
+
+    }
+  }
+  @media screen and (max-width:780px) {
+    .DetailsCard {
+        width: 100%;}
+        .time-text {
+          font-size: 25px !important;
+        }
+        .item-details .content .details span{
+
+          gap: 10px;
+          font-size: 14px !important;
+        
+      }
+        
+  }

@@ -1,0 +1,45 @@
+.swiper {
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  overflow: hidden;
+  list-style: none;
+  padding: 0;
+  z-index: 1;
+  display: block;
+  height: 45vh;
+  width: 100% !important;
+}
+
+
+.swiper-slide {
+  flex-shrink: 0;
+  width: 100% !important;
+  height: 100%;
+  position: relative;
+  transition-property: transform;
+  display: block;
+  background-color: aqua;
+  color: red;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.swiper-slide img {
+  width: 100%;
+  object-fit: fill;
+  height: 100% !important;
+}
+
+span.swiper-pagination-bullet {
+  scale: 1.3;
+}
+
+.swiper-button-prev, .swiper-button-next {
+  display: none !important;
+}
+@media screen and (max-width: 450px) {
+  .swiper {
+      height: 50vw !important;
+  }
+}

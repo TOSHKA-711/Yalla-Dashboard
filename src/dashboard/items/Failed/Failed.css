@@ -1,0 +1,23 @@
+
+
+.failed{
+    width: 100%;
+}
+
+.failed img {
+    width: 18rem;
+}
+
+.failed h3{
+    font-size: 2rem;
+}
+
+@media screen and (max-width:680px) {
+    .failed img {
+        width: 15rem;
+    }
+    
+    .failed h3{
+        font-size: 1.2rem;
+    }
+}
